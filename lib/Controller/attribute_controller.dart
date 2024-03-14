@@ -1,17 +1,12 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:ffi';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart' as http;
-import 'package:testhive/Controller/product_create_controller.dart';
-import 'package:testhive/Model/food_add_class.dart';
 
-import 'package:testhive/Model/themealdb_model.dart';
+import 'package:testhive/Controller/product_add_controller.dart';
+import 'package:testhive/Model/products_attributes.dart';
+import 'package:testhive/Model/attribute_model.dart';
 
-class attributeController extends GetxController {
+
+class AttributeController extends GetxController {
   var foodList = <dynamic>[].obs;
   RxInt indi = RxInt(0);
   RxInt indexOfClickedButton = RxInt(0);
@@ -24,18 +19,9 @@ class attributeController extends GetxController {
   RxBool indiSpiceAttribute = RxBool(false);
 
   var arrayof = <int>[].obs;
-  RxMap<String, List<dynamic>> cartMap = {
-    'none': [
-      {'name': 'Product1', 'price': 20, 'img': 'image1.jpg'},
-      {'name': 'Product2', 'price': 30, 'img': 'image2.jpg'},
-    ],
-  }.obs;
+ 
   var attributeList = <String>['Size', 'Flavour', 'Colors'].obs;
-// final user = Rxn<UserModel>();
 
-  //  AttributeListModel attributeListModel = new AttributeListModel(
-
-  // );
   final attributeListModel = Rxn<AttributeListModel>();
 
   @override
@@ -59,7 +45,7 @@ class attributeController extends GetxController {
   addAttributetoList(String attribute) {
     attributeListModel.value!.attributeList.add(attribute);
     attributeListModel.value!.isSelected.add(false);
-    final productAddController product = Get.put(productAddController());
+    final ProductAddController product = Get.put(ProductAddController());
 
     attributeListModel.refresh();
     // controllerProductAdd.Lstring.clear();

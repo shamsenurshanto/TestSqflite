@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:testhive/Controller/attributeController.dart';
+import 'package:testhive/Controller/attribute_controller.dart';
 
-import '../../Controller/food_card_controller.dart';
+import '../../Controller/dashboard_controller.dart';
 
-class resturantProfile extends StatefulWidget {
-  const resturantProfile({super.key});
+class RestaurantProfile extends StatelessWidget {
+  const RestaurantProfile({super.key});
 
-  @override
-  State<resturantProfile> createState() => _resturantProfileState();
-}
-
-final attributeController controllerAttribute = Get.put(attributeController());
-
-class _resturantProfileState extends State<resturantProfile> {
   @override
   Widget build(BuildContext context) {
+    final AttributeController controllerAttribute = Get.put(AttributeController());
+
     return Scaffold(
         body: SafeArea(
       child: Container(
@@ -148,6 +143,7 @@ void showMyDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
+      final AttributeController controllerAttribute = Get.put(AttributeController());
       return AlertDialog(
         title: Text('Attribute Name'),
         content: TextFormField(

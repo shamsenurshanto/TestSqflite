@@ -1,24 +1,16 @@
+
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:sqflite/sqflite.dart';
-import '../Model/food_category_db.dart';
 
-class CartObject {
-  String name;
-  int price;
-  String img;
+import 'category_controller.dart';
 
-  CartObject({this.name = '', this.price = 0, this.img = ''});
-}
 
-class foodCardController extends GetxController {
+class DashboardController extends GetxController {
   var foodList = <dynamic>[].obs;
-  final foodCategoryTable controllerFoodCategory = Get.put(foodCategoryTable());
+  final CategoryController controllerFoodCategory = Get.put(CategoryController());
 
   RxInt indi = RxInt(0);
   RxInt indexOfClickedButton = RxInt(0);
@@ -30,23 +22,14 @@ class foodCardController extends GetxController {
 
   RxBool indiSpiceAttribute = RxBool(false);
   var arrayof = <int>[].obs;
-  RxMap<String, List<dynamic>> cartMap = {
-    'none': [
-      {'name': 'Product1', 'price': 20, 'img': 'image1.jpg'},
-      {'name': 'Product2', 'price': 30, 'img': 'image2.jpg'},
-    ],
-  }.obs;
+  
 
   @override
   void onInit() {
     // TODO: implement onInit
   }
 
-  getAddedMap(CartObject cartObject, int index, String str) {
-    cartMap[str]?[index]({'name': cartObject.name, "price": cartObject.price, "img": cartObject.img});
-    print(cartMap[str]?[index].name);
-  }
-
+  
   List<dynamic> getFoodListByCategory(String CategoryName) {
     getData(CategoryName);
 

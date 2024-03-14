@@ -4,43 +4,35 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:testhive/Controller/attributeController.dart';
-import 'package:testhive/Controller/food_card_controller.dart';
-import 'package:testhive/Model/themealdb_model.dart';
-import 'package:testhive/View/Dashboard/resturantProfile.dart';
+import 'package:testhive/Controller/attribute_controller.dart';
 
-import '../../Controller/product_create_controller.dart';
+import 'package:testhive/View/Dashboard/restaurant_profile.dart';
 
-class productAdd extends StatefulWidget {
-  const productAdd({super.key});
+import '../../Controller/product_add_controller.dart';
 
-  @override
-  State<productAdd> createState() => _productAddState();
-}
-
-class _productAddState extends State<productAdd> {
+class ProductAdd extends StatelessWidget {
   // Define your object type (adjust properties as needed)
 
 // Create the map with string keys and lists of MyObject values
+  //all the flavoured controller
+  final flavour1 = TextEditingController();
+  final flavour2 = TextEditingController();
+  final flavour3 = TextEditingController();
+  final flavour4 = TextEditingController();
+  final foodName = TextEditingController();
+  final priceForm = TextEditingController();
+
+  List<String> stringList = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
+  final List<String> items = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
+  String? selectedValue;
+  List<String> stringList2 = ['Breakfast', 'L', 'S', 'A', 'B', 'Breakfast', 'S'];
+  int currentIndex = -1;
+  int _counter = 2;
+  final ProductAddController controllerProductAdd = Get.put(ProductAddController());
+  final AttributeController controllerAttribute = Get.put(AttributeController());
 
   @override
   Widget build(BuildContext context) {
-    //all the flavoured controller
-    final flavour1 = TextEditingController();
-    final flavour2 = TextEditingController();
-    final flavour3 = TextEditingController();
-    final flavour4 = TextEditingController();
-    final foodName = TextEditingController();
-    final priceForm = TextEditingController();
-    List<String> stringList = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
-    final List<String> items = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
-    String? selectedValue;
-    List<String> stringList2 = ['Breakfast', 'L', 'S', 'A', 'B', 'Breakfast', 'S'];
-    int currentIndex = -1;
-    int _counter = 2;
-    final productAddController controllerProductAdd = Get.put(productAddController());
     return Scaffold(
         body: Container(
       height: 700,
@@ -72,14 +64,11 @@ class _productAddState extends State<productAdd> {
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            // Apply a slight shadow to the container
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.3),
-                                // Set shadow color
                                 blurRadius: 1.5,
-                                // Adjust blur radius for desired shadow softness
-                                spreadRadius: 0.5, // Adjust spread radius for shadow extent
+                                spreadRadius: 0.5,
                               ),
                             ],
                             borderRadius: BorderRadius.circular(10.0), // Add some border radius

@@ -5,19 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
-import 'package:testhive/Controller/attributeController.dart';
-import '../Model/food_add_class.dart';
-import '../Model/food_category_db.dart';
+import 'package:testhive/Controller/attribute_controller.dart';
+import 'package:testhive/Model/products_attributes.dart';
+import 'package:testhive/Model/attribute_model.dart';
+import '../Model/product_deatils.dart';
+import 'category_controller.dart';
 
-class CartObject {
-  String name;
-  int price;
-  String img;
-
-  CartObject({this.name = '', this.price = 0, this.img = ''});
-}
-
-class productAddController extends GetxController {
+class ProductAddController extends GetxController {
   var foodList = <dynamic>[].obs;
 
   //size flavour spice
@@ -29,25 +23,16 @@ class productAddController extends GetxController {
   RxBool attributesButtonsFalvour = RxBool(false);
   RxBool attributesButtonsSpice = RxBool(false);
 
-  final attributeController controllerattr = Get.put(attributeController());
-  final foodCategoryTable controllerFood = Get.put(foodCategoryTable());
+  final AttributeController controllerattr = Get.put(AttributeController());
+  final CategoryController controllerFood = Get.put(CategoryController());
 
   RxInt indi = RxInt(0);
   RxInt indexOfClickedButton = RxInt(0);
 
   RxString statusShow = RxString("1");
   var arrayof = <int>[].obs;
-  var Foodlist = <Food>[].obs();
 
-  RxMap<String, List<dynamic>> cartMap = {
-    'none': [
-      {'name': 'Product1', 'price': 20, 'img': 'image1.jpg'},
-      {'name': 'Product2', 'price': 30, 'img': 'image2.jpg'},
-    ],
-  }.obs;
-
-  var foodAddList = <Food>[].obs();
-  FoodAttributes attributeDetails = FoodAttributes(
+  ProductsAttributes attributeDetails = ProductsAttributes(
     size: [],
     flavour: [],
     spice: [],
@@ -112,12 +97,12 @@ class productAddController extends GetxController {
   }
 
   Future<void> addProductToDB(String foodname, String priceForm) async {
-    if (priceForm == null) priceForm = '0';
-    FoodName foodName = new FoodName(name: foodname, price: int.parse(priceForm), img: 'img', category: 'Breakfast');
+    priceForm ??= '0';
+    ProductDetails foodName = ProductDetails(name: foodname, price: int.parse(priceForm), img: 'img', category: 'Breakfast');
     controllerFood.insertFoodName(foodName);
     int id = 0;
     try {
-      id = await foodCategoryTable().getLastJoinedFoodId();
+      id = await CategoryController().getLastJoinedFoodId();
     } catch (e) {
       print(e);
     }

@@ -1,30 +1,19 @@
-import 'package:cart_stepper/cart_stepper.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:testhive/Controller/food_card_controller.dart';
-import 'package:testhive/Controller/product_create_controller.dart';
-import 'package:testhive/Model/themealdb_model.dart';
-import 'package:testhive/View/Dashboard/product_create.dart';
-import 'package:testhive/View/Dashboard/resturantProfile.dart';
+import 'package:testhive/Controller/attribute_controller.dart';
+import 'package:testhive/Controller/dashboard_controller.dart';
+import 'package:testhive/Controller/product_add_controller.dart';
+import 'package:testhive/View/Dashboard/product_add.dart';
+import 'package:testhive/View/Dashboard/restaurant_profile.dart';
 
-class foodCart extends StatefulWidget {
-  const foodCart({super.key});
+class DashBoard extends StatelessWidget {
+  final String shImages = 'https://www.cityu.edu.hk/sklmp/sites/g/files/asqsls7251/files/default_images/dummy-post-horisontal.jpg';
 
-  @override
-  State<foodCart> createState() => _foodCartState();
-}
+  const DashBoard({super.key});
 
-class _foodCartState extends State<foodCart> {
-  // Define your object type (adjust properties as needed)
-
-// Create the map with string keys and lists of MyObject values
-  String shImages = 'https://www.cityu.edu.hk/sklmp/sites/g/files/asqsls7251/files/default_images/dummy-post-horisontal.jpg';
-
-  void showBottomModal() {
+  void showBottomModal(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -73,12 +62,14 @@ class _foodCartState extends State<foodCart> {
 
   @override
   Widget build(BuildContext context) {
+    final AttributeController controllerAttribute = Get.put(AttributeController());
+
     List<String> stringList = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
     List<String> stringList2 = ['Breakfast', 'L', 'S', 'A', 'B', 'Breakfast', 'S'];
     int currentIndex = -1;
     int _counter = 2;
-    final foodCardController controllerFoodCard = Get.put(foodCardController());
-    final productAddController controllerProductCreate = Get.put(productAddController());
+    final DashboardController controllerFoodCard = Get.put(DashboardController());
+    final ProductAddController controllerProductCreate = Get.put(ProductAddController());
     String showName = '0';
     int currentName = 0;
     return Scaffold(
@@ -317,6 +308,7 @@ class _foodCartState extends State<foodCart> {
                         itemCount: controllerFoodCard.foodListDashBoard.length,
                         itemBuilder: (context, index) {
                           controllerFoodCard.arrayof.add(0);
+                          //as after joining two table there can be many repitation for one food name
                           if (showName != controllerFoodCard.foodListDashBoard[index]['foodName_name']) {
                             currentName = 1;
                           } else {
@@ -324,7 +316,6 @@ class _foodCartState extends State<foodCart> {
                           }
                           showName = controllerFoodCard.foodListDashBoard[index]['foodName_name'];
                           controllerFoodCard.listString.add([]);
-                          // controllerFoodCard.getActuallString(controllerFoodCard.foodListDashBoard[index]['attributeList'], index);
                           return currentName == 1
                               ? Padding(
                                   padding: const EdgeInsets.only(bottom: 0),
@@ -386,6 +377,8 @@ class _foodCartState extends State<foodCart> {
                                                               style: GoogleFonts.laila(
                                                                   fontSize: 22, fontWeight: FontWeight.bold, color: Colors.deepPurple),
                                                             ),
+
+                                                            
                                                             Text(
                                                               "৳" +
                                                                   controllerFoodCard.foodListDashBoard[index]['price']
@@ -399,7 +392,7 @@ class _foodCartState extends State<foodCart> {
                                                         IconButton(
                                                             onPressed: () {
                                                               print("icon hello");
-                                                              Get.to(resturantProfile());
+                                                              Get.to(RestaurantProfile());
                                                             },
                                                             icon: Icon(
                                                               Icons.edit,
@@ -552,7 +545,6 @@ class _foodCartState extends State<foodCart> {
                                                       onTap: () {
                                                         controllerFoodCard.getIncrease(index, controllerFoodCard.arrayof[index]);
                                                         print(_counter);
-                                                        setState(() {});
                                                       },
                                                       child: Container(
                                                         width: 50,
@@ -608,7 +600,7 @@ class _foodCartState extends State<foodCart> {
                 onPressed: () {
                   // Add your onPressed logic for the second button here
                   print('Second Floating Action Button Pressed!');
-                  showBottomModal();
+                  showBottomModal(context);
                 },
                 child: Icon(
                   Icons.card_travel,
@@ -644,7 +636,7 @@ class _foodCartState extends State<foodCart> {
               // Add your onPressed logic for the first button here
               print('First Floating Action Button Pressed!');
               controllerProductCreate.onInit();
-              Get.to(productAdd());
+              Get.to(ProductAdd());
             },
             child: Icon(
               Icons.add,

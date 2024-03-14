@@ -6,20 +6,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
+import 'package:testhive/Model/attribute_model.dart';
 
+import '../Model/product_deatils.dart';
 
-
-class foodCategoryTable extends GetxController {
+class CategoryController extends GetxController {
   var foodList = <dynamic>[].obs;
-
-  // //size flavour spice
-  // var attributeList = <String>[].obs;
-  // var attributeListFlavour = <String>[].obs;
-  // var attributeListSpice = <String>[].obs;
-  //
-  // RxBool attributesButtonsSize = RxBool(false);
-  // RxBool attributesButtonsFalvour = RxBool(false);
-  // RxBool attributesButtonsSpice = RxBool(false);
 
   RxInt indi = RxInt(0);
 
@@ -55,7 +47,7 @@ class foodCategoryTable extends GetxController {
     return result[0]['foodName_id'];
   }
 
-  Future<void> insertFoodName(FoodName foodName) async {
+  Future<void> insertFoodName(ProductDetails foodName) async {
     // Get a reference to the database.
     final db = await openDatabase('my_database.db');
 
