@@ -7,60 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
 
-class FoodName {
-  final String name;
-  final int price;
-  final String img;
-  final String category;
 
-  // final List<>
-
-  FoodName({required this.name, required this.price, required this.img, required this.category});
-
-  Map<String, Object?> toMap() {
-    return {'name': name, 'price': price, 'img': img, 'category': category};
-  }
-
-  //
-  // factory FoodName.fromMap(Map<String, dynamic> map) {
-  //   final List<String> colors = (map['color'] as String).split(',');
-  //   return FoodName(
-  //     name: map['name'] as String,
-  //     age: map['age'] as int,
-  //     color: colors,
-  //   );
-  // }
-
-  @override
-  String toString() {
-    return 'FoodName{id: name: $name, price: $price}';
-  }
-}
-
-class AttributeList {
-  final int id;
-  final String name;
-  final int age;
-  final List<String> attributeList;
-
-  // final List<>
-
-  AttributeList({required this.id, required this.name, required this.age, required this.attributeList});
-
-  Map<String, Object?> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'age': age,
-      'attributeList': attributeList.join(','),
-    };
-  }
-
-  @override
-  String toString() {
-    return 'AttributeList{id: $id, name: $name, age: $age}';
-  }
-}
 
 class foodCategoryTable extends GetxController {
   var foodList = <dynamic>[].obs;
