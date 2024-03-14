@@ -7,21 +7,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:testhive/Controller/product_create_controller.dart';
-import 'package:testhive/Model/employee_model.dart';
 import 'package:testhive/Model/food_add_class.dart';
-import 'package:testhive/Model/food_card_model.dart';
-import 'package:testhive/Model/task_entity.dart';
+
 import 'package:testhive/Model/themealdb_model.dart';
-import 'package:testhive/View/Dashboard/Employee_controller.dart';
 
 class attributeController extends GetxController {
   var foodList = <dynamic>[].obs;
   RxInt indi = RxInt(0);
   RxInt indexOfClickedButton = RxInt(0);
-  // final productAddController controllerProductAdd = Get.put(productAddController());
-  var employeeListPresent = <EmployeeModel>[].obs;
-  var updatedList = <EmployeeModel>[];
-  var updatedListDate = <Task>[];
+
   RxString statusShow = RxString("1");
   RxBool indiSizeAttribute = RxBool(false);
 

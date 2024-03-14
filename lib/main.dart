@@ -5,33 +5,12 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:testhive/Model/date_list.dart';
-import 'package:testhive/Model/employee_model.dart';
-import 'package:testhive/Model/employee_model_List.dart';
-import 'package:testhive/Model/task_entity.dart';
-import 'package:testhive/View/Dashboard/Employee_view.dart';
-import 'package:testhive/demo/dog_model.dart';
+
+import 'View/Dashboard/food_card.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  try {
-    var directory = await getApplicationDocumentsDirectory();
-    Hive.init(directory.path);
-    Hive.registerAdapter<Task>(TaskAdapter());
-    Hive.registerAdapter<DateList>(DateListAdapter());
-    await Hive.openBox<Task>('taskBox');
-    await Hive.openBox<Task>('taskBox2');
-    //2r
-    Hive.registerAdapter<EmployeeModel>(EmployeeModelAdapter());
-    await Hive.openBox<EmployeeModel>('employee');
-    //3
-    Hive.registerAdapter<employee_model_List>(employeemodelListAdapter());
-    await Hive.openBox<employee_model_List>('employeeList');
-    runApp(const MyApp());
-  } catch (e) {
-    print("e r r " + e.toString());
-  }
   runApp(const MyApp());
 }
 
@@ -62,7 +41,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DashBoardView(),
+      home: foodCart(),
       // home: AddSql(),
     );
   }

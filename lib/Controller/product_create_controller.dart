@@ -6,14 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:testhive/Controller/attributeController.dart';
-import 'package:testhive/Controller/foodLocalDbController/food_category_db_controller.dart';
-import 'package:testhive/Model/employee_model.dart';
-import 'package:testhive/Model/food_card_model.dart';
-import 'package:testhive/Model/task_entity.dart';
-import 'package:testhive/Model/themealdb_model.dart';
-import 'package:testhive/View/Dashboard/Employee_controller.dart';
-
 import '../Model/food_add_class.dart';
+import '../Model/food_category_db.dart';
 
 class CartObject {
   String name;
@@ -40,9 +34,7 @@ class productAddController extends GetxController {
 
   RxInt indi = RxInt(0);
   RxInt indexOfClickedButton = RxInt(0);
-  var employeeListPresent = <EmployeeModel>[].obs;
-  var updatedList = <EmployeeModel>[];
-  var updatedListDate = <Task>[];
+
   RxString statusShow = RxString("1");
   var arrayof = <int>[].obs;
   var Foodlist = <Food>[].obs();
