@@ -65,15 +65,7 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final AttributeController controllerAttribute = Get.put(AttributeController());
 
-    List<String> stringList = [
-      'Breakfast',
-      'Lunch',
-      'Snacks',
-      'Beverages',
-      'Others',
-      'Breakfast',
-      'Lunch'
-    ];
+    List<String> stringList = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
     List<String> stringList2 = ['Breakfast', 'L', 'S', 'A', 'B', 'Breakfast', 'S'];
     int currentIndex = -1;
     int _counter = 2;
@@ -87,7 +79,7 @@ class DashBoard extends StatelessWidget {
         slivers: [
           SliverAppBar(
             pinned: true,
-            expandedHeight: 200-10,
+            expandedHeight: 200 - 10,
             collapsedHeight: 60,
             floating: false,
             iconTheme: IconThemeData(
@@ -289,17 +281,14 @@ class DashBoard extends StatelessWidget {
                         itemBuilder: (context, index) {
                           controllerFoodCard.arrayof.add(0);
                           //as after joining two table there can be many repitation for one food name
-                          if (showName !=
-                              controllerFoodCard.foodListDashBoard[index]['foodName_name']) {
+                          if (showName != controllerFoodCard.foodListDashBoard[index]['foodName_name']) {
                             currentName = 1;
                           } else {
                             currentName = 0;
                           }
                           showName = controllerFoodCard.foodListDashBoard[index]['foodName_name'];
                           controllerFoodCard.listString.add([]);
-                          return currentName == 1
-                              ? foodCartModel(context, index)
-                              : SizedBox();
+                          return currentName == 1 ? foodCartModel(context, index) : SizedBox();
                         })),
           ))
         ],
@@ -336,8 +325,7 @@ class DashBoard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           controllerFoodCard.indi.toString(),
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold),
                         ),
                       ))))
             ],
@@ -366,14 +354,13 @@ class DashBoard extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
-
   }
-  Widget foodCartModel(BuildContext contex,int index){
+
+  Widget foodCartModel(BuildContext contex, int index) {
     final DashboardController controllerFoodCard = Get.put(DashboardController());
     final AttributeController controllerAttribute = Get.put(AttributeController());
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10, top: 3),
-
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 245, 244, 246),
         // Adjust the value for roundness
@@ -382,76 +369,65 @@ class DashBoard extends StatelessWidget {
         onTap: () {
           int i = 0;
           print("hellodss ");
-          controllerFoodCard.joinAndFilterById(controllerFoodCard
-              .foodListDashBoard[index]['foodName_id']);
+          controllerFoodCard.joinAndFilterById(controllerFoodCard.foodListDashBoard[index]['foodName_id']);
           showModalBottomSheet(
             isScrollControlled: true,
             context: contex,
             builder: (BuildContext context) {
               return Container(
                   child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Image.network(
+                          // modal er image
+                          shImages,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Image.network(
-                              // modal er image
-                              shImages,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-
-
-                          Row(
+                          Column(
                             children: [
-                              Column(
-                                children: [
-                                  Text(
-                                    controllerFoodCard
-                                        .foodListDashBoard[index]
-                                    ['foodName_name'],
-                                    style: GoogleFonts.laila(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.deepPurple),
-                                  ),
-                                  Text(
-                                    "৳" +
-                                        controllerFoodCard
-                                            .foodListDashBoard[index]
-                                        ['price']
-                                            .toString()
-                                            .toString(),
-                                    style: GoogleFonts.roboto(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.deepPurple),
-                                  ),
-                                ],
+                              Text(
+                                controllerFoodCard.foodListDashBoard[index]['foodName_name'],
+                                style: GoogleFonts.laila(
+                                    fontSize: 22, fontWeight: FontWeight.bold, color: Colors.deepPurple),
                               ),
-                              IconButton(
-                                  onPressed: () {
-                                    print("icon hello");
-                                    Get.to(RestaurantProfile());
-                                  },
-                                  icon: Icon(
-                                    Icons.edit,
-                                    size: 20,
-                                  ))
+                              Text(
+                                "৳" +
+                                    controllerFoodCard.foodListDashBoard[index]['price']
+                                        .toString()
+                                        .toString(),
+                                style: GoogleFonts.roboto(
+                                    fontSize: 22, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            width: 10,
-                          )
+                          IconButton(
+                              onPressed: () {
+                                print("icon hello");
+                                Get.to(RestaurantProfile());
+                              },
+                              icon: Icon(
+                                Icons.edit,
+                                size: 20,
+                              ))
                         ],
                       ),
+                      SizedBox(
+                        width: 10,
+                      )
+                    ],
+                  ),
 
                       ///attribute columns of bottom module
                       Obx(
@@ -483,45 +459,9 @@ class DashBoard extends StatelessWidget {
                                               : Colors.grey),
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      for (String word
-                                      in controllerFoodCard
-                                          .listString[i])
-                                        Padding(
-                                          padding:
-                                          const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              print(word);
-                                            },
-                                            child: Container(
-                                              height: 30,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                color: Colors.deepPurple,
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    15.0),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  word,
-                                                  // Join the list elements
-                                                  style:
-                                                  GoogleFonts.laila(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                    FontWeight.w500,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                    ],
-                                  )
+
+
+
                                 ],
                               ),
 
@@ -536,12 +476,12 @@ class DashBoard extends StatelessWidget {
                               ],
                             )
 
-                            //attribute of size
-                          ],
-                        ),
-                      )
-                    ],
-                  ));
+                        //attribute of size
+                      ],
+                    ),
+                  )
+                ],
+              ));
             },
           );
         },
@@ -556,7 +496,6 @@ class DashBoard extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10.0),
                   bottomLeft: Radius.circular(10.0),
-
                 ),
                 child: Image.network(
                   shImages,
@@ -564,36 +503,24 @@ class DashBoard extends StatelessWidget {
                 ),
               ),
             ),
-
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 4.0,left: 4,bottom: 3),
-                  child: controllerFoodCard
-                      .foodListDashBoard[index]
-                  ['foodName_name']
-                      .length <
-                      12
+                  padding: const EdgeInsets.only(top: 4.0, left: 4, bottom: 3),
+                  child: controllerFoodCard.foodListDashBoard[index]['foodName_name'].length < 12
                       ? Text(
-                    controllerFoodCard.foodListDashBoard[index]
-                    ['foodName_name'],
-                    style: GoogleFonts.aBeeZee(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.deepPurple),
-                  )
+                          controllerFoodCard.foodListDashBoard[index]['foodName_name'],
+                          style: GoogleFonts.aBeeZee(
+                              fontSize: 13, fontWeight: FontWeight.w700, color: Colors.deepPurple),
+                        )
                       : Text(
-                    controllerFoodCard.foodListDashBoard[index]
-                    ['foodName_name']
-                        .substring(0, 12) +
-                        "...",
-                    style: GoogleFonts.laila(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple),
-                  ),
+                          controllerFoodCard.foodListDashBoard[index]['foodName_name'].substring(0, 12) +
+                              "...",
+                          style: GoogleFonts.laila(
+                              fontSize: 12, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                        ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -610,10 +537,7 @@ class DashBoard extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                controllerFoodCard.getDecrease(
-                                    index,
-                                    controllerFoodCard
-                                        .arrayof[index]);
+                                controllerFoodCard.getDecrease(index, controllerFoodCard.arrayof[index]);
                               },
                               child: Icon(
                                 Icons.minimize,
@@ -624,13 +548,11 @@ class DashBoard extends StatelessWidget {
                           ],
                         )),
                     Obx(
-                          () => Text(controllerFoodCard.arrayof[index]
-                          .toString()),
+                      () => Text(controllerFoodCard.arrayof[index].toString()),
                     ),
                     GestureDetector(
                         onTap: () {
-                          controllerFoodCard.getIncrease(index,
-                              controllerFoodCard.arrayof[index]);
+                          controllerFoodCard.getIncrease(index, controllerFoodCard.arrayof[index]);
                           // print(_counter);
                         },
                         child: Container(
@@ -661,14 +583,9 @@ class DashBoard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 13.0),
                   child: Text(
-                    '৳' +
-                        controllerFoodCard.foodListDashBoard[index]
-                        ['price']
-                            .toString(),
+                    '৳' + controllerFoodCard.foodListDashBoard[index]['price'].toString(),
                     style: GoogleFonts.laila(
-                        fontSize: 21,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple),
+                        fontSize: 21, fontWeight: FontWeight.bold, color: Colors.deepPurple),
                   ),
                 ),
               ],
@@ -678,5 +595,4 @@ class DashBoard extends StatelessWidget {
       ),
     );
   }
-
 }

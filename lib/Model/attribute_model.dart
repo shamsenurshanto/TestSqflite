@@ -8,8 +8,7 @@ class AttributeList {
 
   // final List<>
 
-  AttributeList(
-      {required this.id, required this.name, required this.age, required this.attributeList});
+  AttributeList({required this.id, required this.name, required this.age, required this.attributeList});
 
   Map<String, Object?> toMap() {
     return {

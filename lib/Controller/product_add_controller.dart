@@ -38,8 +38,7 @@ class ProductAddController extends GetxController {
     spice: [],
   );
 
-  RxList<Map<String, List<String>>> productAttributelistBySelected =
-      <Map<String, List<String>>>[].obs;
+  RxList<Map<String, List<String>>> productAttributelistBySelected = <Map<String, List<String>>>[].obs;
   RxList<List<String>> Lstring = <List<String>>[].obs;
 
   @override
@@ -99,8 +98,8 @@ class ProductAddController extends GetxController {
 
   Future<void> addProductToDB(String foodname, String priceForm) async {
     priceForm ??= '0';
-    ProductDetails foodName = ProductDetails(
-        name: foodname, price: int.parse(priceForm), img: 'img', category: 'Breakfast');
+    ProductDetails foodName =
+        ProductDetails(name: foodname, price: int.parse(priceForm), img: 'img', category: 'Breakfast');
     controllerFood.insertFoodName(foodName);
     int id = 0;
     try {
@@ -109,8 +108,11 @@ class ProductAddController extends GetxController {
       print(e);
     }
     for (int i = 0; i < Lstring.length; i++) {
-      AttributeList attributeList =
-          new AttributeList(id: id, name: 'name', age: 12, attributeList: Lstring[i].toList());
+      AttributeList attributeList = new AttributeList(
+          id: id,
+          name: controllerattr.attributeListModel.value!.attributeList[i],
+          age: 12,
+          attributeList: Lstring[i].toList());
       controllerFood.insertAttributeList(attributeList);
     }
     controllerFood.printJoinedData();

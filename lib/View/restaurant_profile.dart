@@ -56,8 +56,8 @@ class RestaurantProfile extends StatelessWidget {
                                 () => Wrap(
                                   spacing: 5.0, // Add spacing between cards (optional)
                                   children: [
-                                    for (String word in controllerAttribute
-                                        .attributeListModel.value!.attributeList)
+                                    for (String word
+                                        in controllerAttribute.attributeListModel.value!.attributeList)
                                       Container(
                                           height: 70,
                                           child: Padding(

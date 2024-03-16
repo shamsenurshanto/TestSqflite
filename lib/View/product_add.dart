@@ -22,24 +22,8 @@ class ProductAdd extends StatelessWidget {
   final foodName = TextEditingController();
   final priceForm = TextEditingController();
 
-  List<String> stringList = [
-    'Breakfast',
-    'Lunch',
-    'Snacks',
-    'Beverages',
-    'Others',
-    'Breakfast',
-    'Lunch'
-  ];
-  final List<String> items = [
-    'Breakfast',
-    'Lunch',
-    'Snacks',
-    'Beverages',
-    'Others',
-    'Breakfast',
-    'Lunch'
-  ];
+  List<String> stringList = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
+  final List<String> items = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
   String? selectedValue;
   List<String> stringList2 = ['Breakfast', 'L', 'S', 'A', 'B', 'Breakfast', 'S'];
   int currentIndex = -1;
@@ -103,8 +87,7 @@ class ProductAdd extends StatelessWidget {
                                 // Remove default border
                                 hintText: 'Enter your food name',
                                 hintStyle: TextStyle(
-                                    color: Color.fromARGB(
-                                        255, 211, 211, 223)), // Set text color to red
+                                    color: Color.fromARGB(255, 211, 211, 223)), // Set text color to red
                               ),
                             ),
                           ),
@@ -267,8 +250,7 @@ class ProductAdd extends StatelessWidget {
                                     hintText: '৳ Price',
                                     // Add the style property with TextStyle
                                     hintStyle: TextStyle(
-                                        color: Color.fromARGB(
-                                            255, 211, 211, 223)), // Set text color to red
+                                        color: Color.fromARGB(255, 211, 211, 223)), // Set text color to red
                                   ),
                                 ),
                               ),
@@ -313,8 +295,8 @@ class ProductAdd extends StatelessWidget {
                               width: 330,
                               height: 100,
                               child: Obx(() => ListView.builder(
-                                    itemCount: controllerAttribute
-                                        .attributeListModel.value!.attributeList.length,
+                                    itemCount:
+                                        controllerAttribute.attributeListModel.value!.attributeList.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
                                       return InkWell(
@@ -333,8 +315,8 @@ class ProductAdd extends StatelessWidget {
                                                 children: [
                                                   Center(
                                                     child: Text(
-                                                      controllerAttribute.attributeListModel.value!
-                                                          .attributeList[index],
+                                                      controllerAttribute
+                                                          .attributeListModel.value!.attributeList[index],
                                                       style: TextStyle(
                                                           fontWeight: FontWeight.bold,
                                                           fontSize: 16,
@@ -356,19 +338,17 @@ class ProductAdd extends StatelessWidget {
                                 // details about size colums
 
                                 Obx(() => ListView.builder(
-                                    itemCount: controllerAttribute
-                                        .attributeListModel.value!.attributeList.length,
+                                    itemCount:
+                                        controllerAttribute.attributeListModel.value!.attributeList.length,
                                     itemBuilder: (context, index) {
                                       // controllerProductAdd.getAttributeValue();
                                       print("size details " +
-                                          controllerAttribute
-                                              .attributeListModel.value!.attributeList.length
+                                          controllerAttribute.attributeListModel.value!.attributeList.length
                                               .toString());
-                                      print(controllerAttribute
-                                          .attributeListModel.value!.isSelected[index]);
+                                      print(controllerAttribute.attributeListModel.value!.isSelected[index]);
                                       return Visibility(
-                                          visible: controllerAttribute
-                                              .attributeListModel.value!.isSelected[index],
+                                          visible:
+                                              controllerAttribute.attributeListModel.value!.isSelected[index],
                                           child: Column(
                                             children: [
                                               Row(
@@ -376,8 +356,7 @@ class ProductAdd extends StatelessWidget {
                                                 children: [
                                                   //attributes name
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(left: 0.0, top: 10),
+                                                    padding: const EdgeInsets.only(left: 0.0, top: 10),
                                                     child: Container(
                                                       width: 80,
                                                       height: 42,
@@ -395,8 +374,8 @@ class ProductAdd extends StatelessWidget {
                                                           print(index);
                                                         },
                                                         child: Text(
-                                                          controllerAttribute.attributeListModel
-                                                              .value!.attributeList[index],
+                                                          controllerAttribute
+                                                              .attributeListModel.value!.attributeList[index],
                                                           style: TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: 15.0,
@@ -412,8 +391,7 @@ class ProductAdd extends StatelessWidget {
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
                                                       Padding(
-                                                        padding: const EdgeInsets.only(
-                                                            left: 0.0, top: 10),
+                                                        padding: const EdgeInsets.only(left: 0.0, top: 10),
                                                         child: Container(
                                                           decoration: BoxDecoration(
                                                             border: Border.all(
@@ -422,15 +400,13 @@ class ProductAdd extends StatelessWidget {
                                                               width: 1.0, // Set border width
                                                             ),
                                                             color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius.circular(10.0),
+                                                            borderRadius: BorderRadius.circular(10.0),
                                                           ),
                                                           child: Container(
                                                             width: 210,
                                                             height: 42,
                                                             color: Colors.white,
-                                                            margin:
-                                                                EdgeInsets.only(bottom: 0, left: 0),
+                                                            margin: EdgeInsets.only(bottom: 0, left: 0),
                                                             child: TextField(
                                                               controller: flavour1,
                                                               decoration: const InputDecoration(
@@ -439,10 +415,7 @@ class ProductAdd extends StatelessWidget {
                                                                 // Remove default border
                                                                 hintText: 'Ex: Naga flavour',
                                                                 hintStyle: TextStyle(
-                                                                    color: Color.fromARGB(
-                                                                        255,
-                                                                        211,
-                                                                        211,
+                                                                    color: Color.fromARGB(255, 211, 211,
                                                                         223)), // Set text color to red
                                                               ),
                                                             ),
@@ -455,8 +428,7 @@ class ProductAdd extends StatelessWidget {
                                                   //add button s
 
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(left: 3, top: 10),
+                                                    padding: const EdgeInsets.only(left: 3, top: 10),
                                                     child: Container(
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
@@ -507,9 +479,7 @@ class ProductAdd extends StatelessWidget {
                                                   // Add spacing between cards (optional)
                                                   children: [
                                                     for (int i = 0;
-                                                        i <
-                                                            controllerProductAdd
-                                                                .Lstring[index].length;
+                                                        i < controllerProductAdd.Lstring[index].length;
                                                         i++)
                                                       Container(
                                                           width: 110,
@@ -517,19 +487,15 @@ class ProductAdd extends StatelessWidget {
                                                           child: Card(
                                                               color: Colors.red.withOpacity(0.5),
                                                               child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment.center,
+                                                                mainAxisAlignment: MainAxisAlignment.center,
                                                                 children: [
                                                                   Text(
-                                                                    controllerProductAdd
-                                                                        .Lstring[index][i],
-                                                                    style: TextStyle(
-                                                                        color: Colors.white),
+                                                                    controllerProductAdd.Lstring[index][i],
+                                                                    style: TextStyle(color: Colors.white),
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
-                                                                      controllerProductAdd
-                                                                          .removeAtrribute(0);
+                                                                      controllerProductAdd.removeAtrribute(0);
                                                                     },
                                                                     child: Icon(
                                                                       Icons.delete_forever_rounded,
@@ -576,8 +542,7 @@ class ProductAdd extends StatelessWidget {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  controllerProductAdd.addProductToDB(
-                                      foodName.text, priceForm.text);
+                                  controllerProductAdd.addProductToDB(foodName.text, priceForm.text);
 
                                   print(foodName.text);
                                 },
