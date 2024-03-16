@@ -110,7 +110,7 @@ class ProductAddController extends GetxController {
     }
     for (int i = 0; i < Lstring.length; i++) {
       AttributeList attributeList =
-          new AttributeList(id: id, name: 'name', age: 12, attributeList: Lstring[i].toList());
+          new AttributeList(id: id, name: controllerattr.attributeListModel.value!.attributeList[i], age: 12, attributeList: Lstring[i].toList());
       controllerFood.insertAttributeList(attributeList);
     }
     controllerFood.printJoinedData();

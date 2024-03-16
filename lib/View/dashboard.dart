@@ -368,6 +368,9 @@ class DashBoard extends StatelessWidget {
     );
 
   }
+
+
+
   Widget foodCartModel(BuildContext contex,int index){
     final DashboardController controllerFoodCard = Get.put(DashboardController());
     final AttributeController controllerAttribute = Get.put(AttributeController());
@@ -455,90 +458,65 @@ class DashBoard extends StatelessWidget {
 
                       ///attribute columns of bottom module
                       Obx(
-                            () => Column(
-                          children: [
-                            for (int i = 0;
-                            i <
-                                controllerAttribute.attributeListModel
-                                    .value!.attributeList.length;
-                            i++)
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 28.0, top: 30),
-                                    child: Text(
-                                      controllerAttribute
-                                          .attributeListModel
-                                          .value!
-                                          .attributeList[i],
-                                      style: GoogleFonts.laila(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w500,
-                                          color: controllerFoodCard
-                                              .indiSizeAttribute.value
-                                              ? Colors.deepPurple
-                                              : Colors.grey),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      for (String word
-                                      in controllerFoodCard
-                                          .listString[i])
-                                        Padding(
-                                          padding:
-                                          const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              print(word);
+                            () => Container(
+
+                              height: 500,
+                              width: double.infinity,// Adjust the height as needed
+                              child: ListView.builder(
+                                itemCount: controllerAttribute.attributeListModel.value?.attributeList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 28.0, top: 30),
+                                    child: Column(
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          controllerAttribute.attributeListModel.value!.attributeList[index],
+                                          style: GoogleFonts.laila(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.w500,
+                                            color: controllerFoodCard.indiSizeAttribute.value ? Colors.deepPurple : Colors.grey,
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 100, // Adjust the height as needed
+                                          child: ListView.builder(
+                                            itemCount:controllerFoodCard.productDetailsList.length,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (BuildContext context, int index2) {
+                                              print(controllerFoodCard.productDetailsList[index].keys);
+                                            List<String>mapList = controllerFoodCard.productDetailsList[index].values.first;
+                                              return Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child:Wrap(
+                                                      spacing: 2,
+                                                  children: [
+                                                    for(String word in mapList)
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          word,
+                                                          style: GoogleFonts.laila(
+                                                            fontSize: 30,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: controllerFoodCard.indiSizeAttribute.value ? Colors.deepPurple : Colors.grey,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                )
+                                              );
                                             },
-                                            child: Container(
-                                              height: 30,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                color: Colors.deepPurple,
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    15.0),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  word,
-                                                  // Join the list elements
-                                                  style:
-                                                  GoogleFonts.laila(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                    FontWeight.w500,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
                                           ),
                                         )
-                                    ],
-                                  )
-                                ],
-                              ),
 
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    child: Text('s'),
-                                  ),
-                                )
-                              ],
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                             )
 
-                            //attribute of size
-                          ],
-                        ),
                       )
                     ],
                   ));

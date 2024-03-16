@@ -20,7 +20,7 @@ class DashboardController extends GetxController {
 
   RxBool indiSpiceAttribute = RxBool(false);
   var arrayof = <int>[].obs;
-
+  var productDetailsList = <Map<String, List<String>>>[].obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -61,13 +61,25 @@ class DashboardController extends GetxController {
       FROM foodName INNER JOIN attributeList ON foodName.id = attributeList.id WHERE foodName.id = ?ORDER BY foodName.id DESC  ''',
         [foodNameId]);
     result.forEach((element) {
-      print(element['attributeList']);
+      // print(element['attributeList']);
+      // print(element['attributeList_name']);
+
       List<String> sizesList = element['attributeList'].split(',');
-      ListForDisplayingInModal.value.addAll(sizesList);
+      Map<String, List<String>> newData = {
+        element['attributeList_name']: sizesList };
+      // productDetailsList.clear();
+      productDetailsList.value.add(newData);
+
       // sizesList.forEach((element) {
       //   print(element);
       // });
     });
+    // productDetailsList.forEach((element) {
+    //   print(element.values);
+    //   element.values.forEach((element) {
+    //     print(element);
+    //   });
+    // });
 
     return result;
   }
