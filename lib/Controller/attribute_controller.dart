@@ -1,10 +1,8 @@
-
 import 'package:get/get.dart';
 
 import 'package:testhive/Controller/product_add_controller.dart';
 import 'package:testhive/Model/products_attributes.dart';
 import 'package:testhive/Model/attribute_model.dart';
-
 
 class AttributeController extends GetxController {
   var foodList = <dynamic>[].obs;
@@ -19,7 +17,7 @@ class AttributeController extends GetxController {
   RxBool indiSpiceAttribute = RxBool(false);
 
   var arrayof = <int>[].obs;
- 
+
   var attributeList = <String>['Size', 'Flavour', 'Colors'].obs;
 
   final attributeListModel = Rxn<AttributeListModel>();

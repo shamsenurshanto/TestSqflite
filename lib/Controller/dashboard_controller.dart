@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:get/get.dart';
@@ -6,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'category_controller.dart';
-
 
 class DashboardController extends GetxController {
   var foodList = <dynamic>[].obs;
@@ -22,14 +20,12 @@ class DashboardController extends GetxController {
 
   RxBool indiSpiceAttribute = RxBool(false);
   var arrayof = <int>[].obs;
-  
 
   @override
   void onInit() {
     // TODO: implement onInit
   }
 
-  
   List<dynamic> getFoodListByCategory(String CategoryName) {
     getData(CategoryName);
 

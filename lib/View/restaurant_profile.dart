@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:testhive/Controller/attribute_controller.dart';
 
-import '../../Controller/dashboard_controller.dart';
+import '../Controller/dashboard_controller.dart';
 
 class RestaurantProfile extends StatelessWidget {
   const RestaurantProfile({super.key});
@@ -56,7 +56,8 @@ class RestaurantProfile extends StatelessWidget {
                                 () => Wrap(
                                   spacing: 5.0, // Add spacing between cards (optional)
                                   children: [
-                                    for (String word in controllerAttribute.attributeListModel.value!.attributeList)
+                                    for (String word in controllerAttribute
+                                        .attributeListModel.value!.attributeList)
                                       Container(
                                           height: 70,
                                           child: Padding(
