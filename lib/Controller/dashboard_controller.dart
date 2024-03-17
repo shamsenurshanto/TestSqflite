@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -9,6 +10,8 @@ import 'category_controller.dart';
 class DashboardController extends GetxController {
   var foodList = <dynamic>[].obs;
   final CategoryController controllerFoodCategory = Get.put(CategoryController());
+  TextEditingController textEditingControllerForModal = TextEditingController();
+
 
   RxInt indi = RxInt(0);
   RxInt indexOfClickedButton = RxInt(0);
@@ -32,13 +35,22 @@ class DashboardController extends GetxController {
     return foodList;
   }
 
+  setTexteditingControllerValue(String val,int index){
+    textEditingControllerForModal.text = val;
+    arrayof[index] = int.parse(val);
+    print(textEditingControllerForModal.text);
+  }
+
   getIncrease(int index, int val) {
     indi.value++;
     arrayof[index] = val + 1;
+    setTexteditingControllerValue(arrayof[index].toString(),index);
   }
 
   getDecrease(int index, int val) {
     if (val > 0) arrayof[index] = val - 1;
+    setTexteditingControllerValue(arrayof[index].toString(),index);
+
   }
 
   getChangeSizeAttribute() {
@@ -60,23 +72,26 @@ class DashboardController extends GetxController {
       SELECT foodName.id, foodName.name as foodName_name,attributeList.name as attributeList_name,attributeList.attributeList as attributeList
       FROM foodName INNER JOIN attributeList ON foodName.id = attributeList.id WHERE foodName.id = ?ORDER BY foodName.id DESC  ''',
         [foodNameId]);
+    productDetailsList.clear();
     result.forEach((element) {
       // print(element['attributeList']);
       List<String> sizesList = element['attributeList'].split(',');
       Map<String, List<String>> newData = {element['attributeList_name']: sizesList};
-      productDetailsList.clear();
+
       productDetailsList.value.add(newData);
       productDetailsList.forEach((element) {
-        print(element.values);
+        // print(element);
 
-        for (var list in element.values) {
-          for (var string in list) {
-            // print(string);
-          }
-        }
+        // for (var list in element.values) {
+        //   for (var string in list) {
+        //     // print(string);
+        //   }
+        // }
 
         // sizesList.addAll(element.values);
       });
+      print(productDetailsList.length);
+      productDetailsList.refresh();
     });
 
     return result;

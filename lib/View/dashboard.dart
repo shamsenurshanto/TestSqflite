@@ -10,7 +10,7 @@ import 'package:testhive/View/restaurant_profile.dart';
 
 class DashBoard extends StatelessWidget {
   final String shImages =
-      'https://www.cityu.edu.hk/sklmp/sites/g/files/asqsls7251/files/default_images/dummy-post-horisontal.jpg';
+      'https://yrf.com.au/wp-content/uploads/2021/09/placeholder-wire-image.jpg';
 
   const DashBoard({super.key});
 
@@ -288,7 +288,9 @@ class DashBoard extends StatelessWidget {
                           }
                           showName = controllerFoodCard.foodListDashBoard[index]['foodName_name'];
                           controllerFoodCard.listString.add([]);
-                          return currentName == 1 ? foodCartModel(context, index) : SizedBox();
+                          return currentName == 1 ?
+                          foodCartModel(context, index)
+                              : SizedBox();
                         })),
           ))
         ],
@@ -370,118 +372,232 @@ class DashBoard extends StatelessWidget {
           int i = 0;
           print("hellodss ");
           controllerFoodCard.joinAndFilterById(controllerFoodCard.foodListDashBoard[index]['foodName_id']);
+          controllerFoodCard.setTexteditingControllerValue(controllerFoodCard.arrayof[index].toString(), index);
           showModalBottomSheet(
             isScrollControlled: true,
             context: contex,
             builder: (BuildContext context) {
-              return Container(
-                  child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Image.network(
-                          // modal er image
-                          shImages,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                controllerFoodCard.foodListDashBoard[index]['foodName_name'],
-                                style: GoogleFonts.laila(
-                                    fontSize: 22, fontWeight: FontWeight.bold, color: Colors.deepPurple),
-                              ),
-                              Text(
-                                "৳" +
-                                    controllerFoodCard.foodListDashBoard[index]['price']
-                                        .toString()
-                                        .toString(),
-                                style: GoogleFonts.roboto(
-                                    fontSize: 22, fontWeight: FontWeight.bold, color: Colors.deepPurple),
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                print("icon hello");
-                                Get.to(RestaurantProfile());
-                              },
-                              icon: Icon(
-                                Icons.edit,
-                                size: 20,
-                              ))
-                        ],
-                      ),
-                      SizedBox(
-                        width: 10,
-                      )
-                    ],
-                  ),
+              return SingleChildScrollView(
+                child: Container(
+                    // height: 800,
+                    child: Column(
+                      children: [
 
-                      ///attribute columns of bottom module
-                      Obx(
-                            () => Column(
-                          children: [
-                            for (int i = 0;
-                            i <
-                                controllerAttribute.attributeListModel
-                                    .value!.attributeList.length;
-                            i++)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 38.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                child: Image.network(
+                                  // modal er image
+                                  shImages,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+
                               Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 28.0, top: 30),
-                                    child: Text(
-                                      controllerAttribute
-                                          .attributeListModel
-                                          .value!
-                                          .attributeList[i],
-                                      style: GoogleFonts.laila(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w500,
-                                          color: controllerFoodCard
-                                              .indiSizeAttribute.value
-                                              ? Colors.deepPurple
-                                              : Colors.grey),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        controllerFoodCard.foodListDashBoard[index]['foodName_name'],
+                                        style: GoogleFonts.laila(
+                                            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                                      ),
+                                      Text(
+                                        "৳" +
+                                            controllerFoodCard.foodListDashBoard[index]['price']
+                                                .toString()
+                                                .toString(),
+                                        style: GoogleFonts.roboto(
+                                            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                                      ),
+                                    ],
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        print("icon hello");
+                                        Get.to(RestaurantProfile());
+                                      },
+                                      icon: Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                      )),
+                                  InkWell(
+                                    onTap: () {
+                                      // Handle button press action here
+                                      Navigator.pop(context); // Close the bottom sheet on button press
+                                    },
+                                    borderRadius: BorderRadius.circular(20.0), // Adjust for desired roundness
+                                    child: Container(
+                                        height: 60,
+                                        width: 80,
+                                        padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 1.0), // Adjust padding as needed
+                                        decoration: BoxDecoration(
+                                          color: Colors.deepPurpleAccent, // Change color to your preference
+                                          borderRadius: BorderRadius.circular(20.0), // Match corner radius with InkWell
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.deepPurpleAccent.withOpacity(0.7), // Subtle shadow for depth
+                                              offset: Offset(2.0, 2.0), // Adjust shadow offset for desired effect
+                                              blurRadius: 4.0, // Control shadow blur radius
+                                            ),
+                                          ],
+                                        ),
+                                        child:Center(
+                                            child:Icon(Icons.add_shopping_cart_outlined,size: 30,color: Colors.white,)
+                                        )
                                     ),
                                   ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 10,
+                              )
+                            ],
+                          ),
+                        ),
+
+                        Container(
+                          width: 280,
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple.withOpacity(.6),
+                            borderRadius: BorderRadius.circular(25), // Adjust the radius as needed
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                  width: 50,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          controllerFoodCard.getDecrease(index, controllerFoodCard.arrayof[index]);
+                                        },
+                                        child: Icon(
+                                          Icons.minimize,
+                                          color: Colors.deepPurpleAccent,
+                                          size: 23,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              Obx(
+                                      () => Container(
+                                    width: 70,
+                                    height: 50,
+                                    child:   TextFormField(
+                                      controller: controllerFoodCard.textEditingControllerForModal,
+                                      keyboardType: TextInputType.number,
+                                      textInputAction: TextInputAction.next,
+                                      style: const TextStyle(color: Colors.white,fontSize: 24),
+                                      onChanged: (val){
+                                        controllerFoodCard.setTexteditingControllerValue(val,index);
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText:   controllerFoodCard.arrayof[index].toString(),
+                                        hintStyle: TextStyle(fontSize: 20, color: Colors.white),
+
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white), // Set the border color here
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white), // Adjust focused border color if needed
+                                        ),
+
+                                      ),
+                                    ),
+                                  )
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    controllerFoodCard.getIncrease(index, controllerFoodCard.arrayof[index]);
+                                    // print(_counter);
+                                  },
+                                  child: Container(
+                                    width: 50,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.deepPurpleAccent,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+
+                        ///attribute columns of bottom module
+                        Obx(
+                              () => Column(
+                            children: [
+
+                              Container(
+                                  height:700,
+                                  width: 300,
+                                  child:  ListView.builder(
+                                      itemCount: controllerFoodCard.productDetailsList.length,
+                                      itemBuilder: (BuildContext contex,int index){
+                                        print(controllerFoodCard.productDetailsList[index].values);
+                                        print('values');
+
+                                        Widget textWidget = buildTextFromMap(controllerFoodCard.productDetailsList[index]);
+                                        // controllerFoodCard.productDetailsList.refresh();
+                                        // print(index);
+                                        return   Wrap(
+
+                                          children: [
+
+                                            textWidget
 
 
 
+                                          ],
+                                        );
+                                      })
+                              ),
+
+
+
+
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Container(
+                                      child: Text('s'),
+                                    ),
+                                  )
                                 ],
                               ),
 
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    child: Text('s'),
-                                  ),
-                                )
-                              ],
-                            )
 
-                        //attribute of size
+
+                              //attribute of size
+                            ],
+                          ),
+                        )
                       ],
-                    ),
-                  )
-                ],
-              ));
+                    )),
+              );
             },
           );
         },
@@ -593,6 +709,96 @@ class DashBoard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildTextFromMap(Map<String, List<String>> data) {
+    List<Widget> widgets = [];
+    print(data);
+    var boolListForAttributeValuesButton = <bool>[].obs;
+
+    data.forEach((key, value) {
+
+     print(value);
+     print('valiu');
+     if(value[0].isNotEmpty)
+
+      widgets.add(
+         Column(
+           crossAxisAlignment: CrossAxisAlignment.start,
+           children: [
+             Padding(
+               padding: const EdgeInsets.only(
+                   left: 00.0, top: 30),
+               child: Text(
+                 '$key',
+                 style: GoogleFonts.laila(
+                     fontSize: 30,
+                     fontWeight: FontWeight.w500,
+                     color:Colors.grey),
+               ),
+             ),
+             Container(
+               margin: EdgeInsets.only(top: 10),
+               height: 50, // Adjust the height as needed
+               width: 300,
+               child: ListView.builder(
+                 scrollDirection: Axis.horizontal,
+                 itemCount: value.length,
+                 itemBuilder: (BuildContext context, int index) {
+                   boolListForAttributeValuesButton.add(false);
+                   return Padding(
+                     padding: const EdgeInsets.only(left: 10.0),
+                     child:Obx(() =>  InkWell(
+                       onTap: () {
+                         print("clicked");
+                         boolListForAttributeValuesButton[index] = !boolListForAttributeValuesButton[index];
+
+                       },
+                       child: Container(
+                         // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                         // margin: EdgeInsets.all(3),
+
+                         decoration: BoxDecoration(
+                           color: boolListForAttributeValuesButton[index] ? Colors.deepPurpleAccent.withOpacity(0.2) : Colors.grey.withOpacity(0.1),
+                           borderRadius: BorderRadius.circular(0), // Rounded border radius
+                           border: Border.all(
+                             color: boolListForAttributeValuesButton[index] ? Colors.deepPurpleAccent : Colors.grey,
+                             width: 2,
+                           ),
+                         ),
+                         child: Center(
+                           child: Padding(
+                             padding: const EdgeInsets.all(8.0),
+                             child: Text(
+                               value[index],
+                               style: GoogleFonts.laila(
+                                 fontSize: 20,
+                                 fontWeight: FontWeight.w500,
+                                 color: boolListForAttributeValuesButton[index] ? Colors.deepPurpleAccent : Colors.grey,
+                               ),
+                             ),
+                           ),
+                         )
+                       ),
+                     )
+
+                     )
+                   );
+                 },
+               ),
+             )
+
+           ],
+         ));
+    });
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:
+
+      widgets,
     );
   }
 }
