@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:testhive/Controller/add_to_cart_controller.dart';
 import 'package:testhive/Controller/attribute_controller.dart';
 import 'package:testhive/Controller/dashboard_controller.dart';
 import 'package:testhive/Controller/product_add_controller.dart';
+import 'package:testhive/Model/add_to_cart_model.dart';
 import 'package:testhive/View/product_add.dart';
 import 'package:testhive/View/restaurant_profile.dart';
 
@@ -14,52 +16,7 @@ class DashBoard extends StatelessWidget {
 
   const DashBoard({super.key});
 
-  void showBottomModal(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 670,
-          color: Colors.white,
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              // Title
-              Text(
-                'This is a showBottom modal pls define it with this',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              const SizedBox(height: 10.0),
 
-              // Content (replace with your specific content)
-              Text(
-                'This is some content that appears in the modal.',
-              ),
-              const SizedBox(height: 10.0),
-
-              // Action buttons (replace with your desired actions)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ElevatedButton(
-                    child: const Text('Close'),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const SizedBox(width: 10.0),
-                  ElevatedButton(
-                    child: const Text('Confirm'),
-                    // Replace with your action logic
-                    onPressed: () => Navigator.pop(context, 'confirmed'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    ); // Handle modal result if needed
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +265,7 @@ class DashBoard extends StatelessWidget {
                   showBottomModal(context);
                 },
                 child: Icon(
-                  Icons.card_travel,
+                  Icons.shopping_cart,
                   size: 30,
                   color: Colors.deepPurple[300],
                 ),
@@ -358,9 +315,174 @@ class DashBoard extends StatelessWidget {
     );
   }
 
+  void showBottomModal(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        final AddToCartController addToCartController = Get.put(AddToCartController());
+        final  DashboardController controllerFoodCard = Get.put(DashboardController());
+        return Container(
+          height: 670,
+          // width: 320,
+          color: Colors.white,
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              // Title
+              Text(
+                'This is a showBottom modal pls define it with this',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const SizedBox(height: 10.0),
+              // Action buttons (replace with your desired actions)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                    child: const Text('Close'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  const SizedBox(width: 10.0),
+                  ElevatedButton(
+                    child: const Text('Confirm'),
+                    // Replace with your action logic
+                    onPressed: () => Navigator.pop(context, 'confirmed'),
+                  ),
+                ],
+              ),
+            Obx(() =>   Container(
+              height: 500,
+              width: 330,
+              child: ListView.builder(
+                  itemCount: addToCartController.addToCartList.length,
+                  itemBuilder: (BuildContext context,int index){
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 70,
+                          height: 80,
+                          margin: EdgeInsets.all(1),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              bottomLeft: Radius.circular(10.0),
+                            ),
+                            child: Image.network(
+                              shImages,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4.0, left: 4, bottom: 10),
+                              child: addToCartController.addToCartList[index].name.length < 12
+                                  ? Text(
+                                addToCartController.addToCartList[index].name,
+                                style: GoogleFonts.aBeeZee(
+                                    fontSize: 13, fontWeight: FontWeight.w700, color: Colors.deepPurple),
+                              )
+                                  : Text(
+                                addToCartController.addToCartList[index].name.substring(0, 12) +
+                                    "...",
+                                style: GoogleFonts.laila(
+                                    fontSize: 12, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    width: 50,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.deepPurple,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            controllerFoodCard.getDecrease(index, controllerFoodCard.arrayof[index]);
+                                          },
+                                          child: Icon(
+                                            Icons.minimize,
+                                            color: Colors.white,
+                                            size: 23,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                                Obx(
+                                      () => Text(controllerFoodCard.arrayof[index].toString()),
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      controllerFoodCard.getIncrease(index, controllerFoodCard.arrayof[index]);
+                                      // print(_counter);
+                                    },
+                                    child: Container(
+                                      width: 50,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: Colors.deepPurple,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 13.0),
+                              child: Text(
+                                '৳' + addToCartController.addToCartList[index].price.toString(),
+                                style: GoogleFonts.laila(
+                                    fontSize: 21, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  }),
+            ))
+
+
+
+            ],
+          ),
+        );
+      },
+    ); // Handle modal result if needed
+  }
+
   Widget foodCartModel(BuildContext contex, int index) {
     final DashboardController controllerFoodCard = Get.put(DashboardController());
     final AttributeController controllerAttribute = Get.put(AttributeController());
+    final AddToCartController addToCartController = Get.put(AddToCartController());
+    // final AddToCartController a
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10, top: 3),
       decoration: BoxDecoration(
@@ -372,6 +494,7 @@ class DashBoard extends StatelessWidget {
           int i = 0;
           print("hellodss ");
           controllerFoodCard.joinAndFilterById(controllerFoodCard.foodListDashBoard[index]['foodName_id']);
+          addToCartController.saveIdForLaterAddToCart.value = controllerFoodCard.foodListDashBoard[index]['foodName_id'];
           controllerFoodCard.setTexteditingControllerValue(controllerFoodCard.arrayof[index].toString(), index);
           showModalBottomSheet(
             isScrollControlled: true,
@@ -434,7 +557,10 @@ class DashBoard extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       // Handle button press action here
+                                      AddToCartModel addToCartModel = new AddToCartModel(id:addToCartController.saveIdForLaterAddToCart.value, name: controllerFoodCard.foodListDashBoard[index]['foodName_name'], index: index, amount: controllerFoodCard.arrayof[index], price: controllerFoodCard.foodListDashBoard[index]['price']);
+                                      addToCartController.addProductToCart(addToCartModel);
                                       Navigator.pop(context); // Close the bottom sheet on button press
+
                                     },
                                     borderRadius: BorderRadius.circular(20.0), // Adjust for desired roundness
                                     child: Container(
@@ -575,19 +701,6 @@ class DashBoard extends StatelessWidget {
                                       })
                               ),
 
-
-
-
-                              Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      child: Text('s'),
-                                    ),
-                                  )
-                                ],
-                              ),
 
 
 
