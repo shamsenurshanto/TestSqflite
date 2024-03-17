@@ -4,7 +4,7 @@ class AddToCartModel {
   final int id;
   final String name;
   final int index;
-  final int amount;
+  late final int amount;
   final int price;
 
   // Constructor

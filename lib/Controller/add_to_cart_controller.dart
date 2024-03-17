@@ -23,4 +23,7 @@ class AddToCartController extends GetxController {
       print(element);
     });
   }
+  setAddToCartListAmount(int index){
+    addToCartList[index].amount ++;
+  }
 }

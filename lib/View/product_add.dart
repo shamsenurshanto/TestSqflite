@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:testhive/Controller/attribute_controller.dart';
+import 'package:testhive/Controller/dashboard_controller.dart';
+import 'package:testhive/View/dashboard.dart';
 
 import 'package:testhive/View/restaurant_profile.dart';
 
@@ -30,6 +32,7 @@ class ProductAdd extends StatelessWidget {
   int _counter = 2;
   final ProductAddController controllerProductAdd = Get.put(ProductAddController());
   final AttributeController controllerAttribute = Get.put(AttributeController());
+  final DashboardController controllerFoodCard = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -543,6 +546,8 @@ class ProductAdd extends StatelessWidget {
                               child: TextButton(
                                 onPressed: () {
                                   controllerProductAdd.addProductToDB(foodName.text, priceForm.text);
+                                  controllerFoodCard.getData(stringList2[0]);
+                                 Get.back();
 
                                   print(foodName.text);
                                 },

@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import 'package:sqflite/sqflite.dart';
+import 'package:testhive/Controller/add_to_cart_controller.dart';
 
 import 'category_controller.dart';
 
 class DashboardController extends GetxController {
   var foodList = <dynamic>[].obs;
   final CategoryController controllerFoodCategory = Get.put(CategoryController());
+  final AddToCartController addToCartController =Get.put(AddToCartController());
   TextEditingController textEditingControllerForModal = TextEditingController();
 
 
@@ -39,6 +41,7 @@ class DashboardController extends GetxController {
     textEditingControllerForModal.text = val;
     arrayof[index] = int.parse(val);
     print(textEditingControllerForModal.text);
+    // addToCartController.addToCartList[index].amount = arrayof[index];
   }
 
   getIncrease(int index, int val) {
@@ -90,7 +93,7 @@ class DashboardController extends GetxController {
 
         // sizesList.addAll(element.values);
       });
-      print(productDetailsList.length);
+      // print(productDetailsList.length);
       productDetailsList.refresh();
     });
 

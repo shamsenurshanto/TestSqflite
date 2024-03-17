@@ -352,122 +352,140 @@ class DashBoard extends StatelessWidget {
                   ),
                 ],
               ),
-            Obx(() =>   Container(
-              height: 500,
-              width: 330,
-              child: ListView.builder(
-                  itemCount: addToCartController.addToCartList.length,
-                  itemBuilder: (BuildContext context,int index){
+              Obx(() =>   Container(
 
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                height: 500,
+                width: 330,
+                child: ListView.builder(
+                    itemCount: addToCartController.addToCartList.length,
+                    itemBuilder: (BuildContext context,int index){
+
+                      return
                         Container(
-                          width: 70,
-                          height: 80,
-                          margin: EdgeInsets.all(1),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10.0),
-                              bottomLeft: Radius.circular(10.0),
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10), // Adjust the border radius as needed
+                          border: Border.all(color: Colors.deepPurpleAccent.withOpacity(.15)), // Border color
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.5), // Shadow color
+                              spreadRadius: 5, // Spread radius
+                              blurRadius: 7, // Blur radius
+                              offset: Offset(0, 3), // Offset
                             ),
-                            child: Image.network(
-                              shImages,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                          ],
                         ),
-                        Column(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0, left: 4, bottom: 10),
-                              child: addToCartController.addToCartList[index].name.length < 12
-                                  ? Text(
-                                addToCartController.addToCartList[index].name,
-                                style: GoogleFonts.aBeeZee(
-                                    fontSize: 13, fontWeight: FontWeight.w700, color: Colors.deepPurple),
-                              )
-                                  : Text(
-                                addToCartController.addToCartList[index].name.substring(0, 12) +
-                                    "...",
-                                style: GoogleFonts.laila(
-                                    fontSize: 12, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                            Container(
+                              width: 70,
+                              height: 80,
+                              margin: EdgeInsets.all(1),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  bottomLeft: Radius.circular(10.0),
+                                ),
+                                child: Image.network(
+                                  shImages,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                    width: 50,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Colors.deepPurple,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            controllerFoodCard.getDecrease(index, controllerFoodCard.arrayof[index]);
-                                          },
-                                          child: Icon(
-                                            Icons.minimize,
-                                            color: Colors.white,
-                                            size: 23,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Obx(
-                                      () => Text(controllerFoodCard.arrayof[index].toString()),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4.0, left: 4, bottom: 10),
+                                  child: addToCartController.addToCartList[index].name.length < 12
+                                      ? Text(
+                                    addToCartController.addToCartList[index].name,
+                                    style: GoogleFonts.aBeeZee(
+                                        fontSize: 13, fontWeight: FontWeight.w700, color: Colors.deepPurple),
+                                  )
+                                      : Text(
+                                    addToCartController.addToCartList[index].name.substring(0, 12) +
+                                        "...",
+                                    style: GoogleFonts.laila(
+                                        fontSize: 12, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                                  ),
                                 ),
-                                GestureDetector(
-                                    onTap: () {
-                                      controllerFoodCard.getIncrease(index, controllerFoodCard.arrayof[index]);
-                                      // print(_counter);
-                                    },
-                                    child: Container(
-                                      width: 50,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: Colors.deepPurple,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                      ),
-                                    )),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        width: 50,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          color: Colors.deepPurple,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                controllerFoodCard.getDecrease(index, controllerFoodCard.arrayof[index]);
+                                              },
+                                              child: Icon(
+                                                Icons.minimize,
+                                                color: Colors.white,
+                                                size: 23,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    Obx(
+                                          () => Text(addToCartController.addToCartList[index].amount.toString()),
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          controllerFoodCard.getIncrease(index, controllerFoodCard.arrayof[index]);
+                                          addToCartController.setAddToCartListAmount(index);
+                                          // print(_counter);
+                                        },
+                                        child: Container(
+                                          width: 50,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            color: Colors.deepPurple,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                )
                               ],
                             ),
                             SizedBox(
-                              height: 20,
+                              width: 50,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 13.0),
+                                  child: Text(
+                                    '৳' + addToCartController.addToCartList[index].price.toString(),
+                                    style: GoogleFonts.laila(
+                                        fontSize: 21, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                                  ),
+                                ),
+                              ],
                             )
                           ],
                         ),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 13.0),
-                              child: Text(
-                                '৳' + addToCartController.addToCartList[index].price.toString(),
-                                style: GoogleFonts.laila(
-                                    fontSize: 21, fontWeight: FontWeight.bold, color: Colors.deepPurple),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    );
-                  }),
-            ))
+                                              );
+                    }),
+              ))
 
 
 
