@@ -42,6 +42,7 @@ class RestaurantProfile extends StatelessWidget {
             GestureDetector(
                 onTap: () {
                   print("settings ");
+                  controllerAttribute.setAllValue();
                   showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
@@ -54,7 +55,8 @@ class RestaurantProfile extends StatelessWidget {
                               Container(
                                   child: Obx(
                                 () => Wrap(
-                                  spacing: 5.0, // Add spacing between cards (optional)
+                                  spacing: 5.0,
+
                                   children: [
                                     for (String word
                                         in controllerAttribute.attributeListModel.value!.attributeList)
@@ -63,18 +65,22 @@ class RestaurantProfile extends StatelessWidget {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Card(
-                                                color: Colors.red.withOpacity(0.5),
+                                                color:
+                                                    Colors.red.withOpacity(0.5),
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Text(
                                                       word,
-                                                      style: TextStyle(color: Colors.white),
+                                                      style: TextStyle(
+                                                          color: Colors.white),
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {},
                                                       child: Icon(
-                                                        Icons.delete_forever_rounded,
+                                                        Icons
+                                                            .delete_forever_rounded,
                                                         color: Colors.white,
                                                       ),
                                                     )
@@ -96,11 +102,13 @@ class RestaurantProfile extends StatelessWidget {
                                       child: Card(
                                           color: Colors.green.withOpacity(0.5),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 "Add more attribute",
-                                                style: TextStyle(color: Colors.white),
+                                                style: TextStyle(
+                                                    color: Colors.white),
                                               ),
                                             ],
                                           )),
@@ -121,13 +129,15 @@ class RestaurantProfile extends StatelessWidget {
                         color: const Color.fromARGB(255, 233, 149, 177),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20.0), // Top left corner
-                          bottomRight: Radius.circular(20.0), // Bottom right corner
+                          bottomRight:
+                              Radius.circular(20.0), // Bottom right corner
                         ),
                       ),
                       child: Center(
                           child: Text(
                         "Settings ",
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ))),
                 )),
           ],
@@ -144,7 +154,8 @@ void showMyDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      final AttributeController controllerAttribute = Get.put(AttributeController());
+      final AttributeController controllerAttribute =
+          Get.put(AttributeController());
       return AlertDialog(
         title: Text('Attribute Name'),
         content: TextFormField(
@@ -158,7 +169,8 @@ void showMyDialog(BuildContext context) {
             onPressed: () {
               // Close the dialog and print the entered text
               Navigator.of(context).pop();
-              controllerAttribute.addAttributetoList(textEditingController.text);
+              controllerAttribute
+                  .addAttributetoList(textEditingController.text);
               print('Entered Text: ${textEditingController.text}');
             },
             child: Text('OK'),

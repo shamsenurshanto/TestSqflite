@@ -31,9 +31,10 @@ class AttributeController extends GetxController {
   }
 
   setAllValue() {
-    attributeListModel.value = AttributeListModel();
+    // attributeListModel.value = AttributeListModel();
     print("set value called ");
-    attributeListModel.value?.attributeList.addAll(attributeList);
+    // attributeListModel.value?.attributeList.clear();
+    attributeListModel.value!.attributeList.addAll(attributeList);
     for (int i = 0; i < attributeListModel.value!.attributeList.length; i++) {
       attributeListModel.value?.isSelected.add(false);
     }

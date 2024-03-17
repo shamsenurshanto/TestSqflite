@@ -24,6 +24,7 @@ class DashboardController extends GetxController {
   RxBool indiSpiceAttribute = RxBool(false);
   var arrayof = <int>[].obs;
   var productDetailsList = <Map<String, List<String>>>[].obs;
+  var productDetailsList = <Map<String, List<String>>>[].obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -93,6 +94,12 @@ class DashboardController extends GetxController {
       print(productDetailsList.length);
       productDetailsList.refresh();
     });
+    // productDetailsList.forEach((element) {
+    //   print(element.values);
+    //   element.values.forEach((element) {
+    //     print(element);
+    //   });
+    // });
 
     return result;
   }
