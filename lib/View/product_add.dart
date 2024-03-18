@@ -484,32 +484,23 @@ class ProductAdd extends StatelessWidget {
                                                 ],
                                               ),
                                               //extra wrapper if added in the array
-                                                Container(
-                                                  // width: 330,
-                                                  child: Obx(
-                                                () => Row(
-                                                  // spacing: 5.0,
-                                                  // direction: Axis.horizontal,
-                                                  // Add spacing between cards (optional)
-                                                  children: [
-                                                    for (int i = 0;
-                                                        i < controllerProductAdd.Lstring[index].length;
-                                                        i++)
-                                                      Flexible(
-                                                         
-                                                          child: Card(
-                                                              color: Color.fromARGB(255, 238, 40, 30).withOpacity(0.69),
+                                                Obx(
+                                                () => Container(
+                                                  // margin: EdgeInsets.only(right: 3),
+                                                    child: Wrap(
+                                                      children: [
+                                                        for (int i = 0; i < controllerProductAdd.Lstring[index].length; i++)
+                                                          Flexible(
+                                                            child: Container(
+                                                              margin: EdgeInsets.only(right: 5,bottom: 5),
+                                                              padding: EdgeInsets.all(5),
+                                                                color: Colors.red.withOpacity(0.5),
                                                               child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                mainAxisSize: MainAxisSize.min,
                                                                 children: [
-                                                                  Flexible(
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets.all(2.0),
-                                                                      child: Text(
-                                                                        controllerProductAdd.Lstring[index][i],
-                                                                        style: TextStyle(color: Colors.white),
-                                                                      ),
-                                                                    ),
+                                                                  Text(
+                                                                    controllerProductAdd.Lstring[index][i],
+                                                                    style: TextStyle(color: Colors.white),
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
@@ -526,8 +517,12 @@ class ProductAdd extends StatelessWidget {
                                                           ),
                                                       ],
                                                     ),
+                                                  
+                                                  ),
+                                                )
 
-                                              )),
+
+                                              
                                             ],
                                           ));
                                     }))),
