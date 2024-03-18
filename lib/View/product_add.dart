@@ -492,7 +492,7 @@ class ProductAdd extends StatelessWidget {
                                                         for (int i = 0; i < controllerProductAdd.Lstring[index].length; i++)
                                                           Flexible(
                                                             child: Container(
-                                                              margin: EdgeInsets.only(right: 5,bottom: 5),
+                                                              margin: EdgeInsets.only(right: 5,top: 5),
                                                               padding: EdgeInsets.all(5),
                                                                 color: Colors.red.withOpacity(0.5),
                                                               child: Row(
@@ -500,7 +500,9 @@ class ProductAdd extends StatelessWidget {
                                                                 children: [
                                                                   Text(
                                                                     controllerProductAdd.Lstring[index][i],
-                                                                    style: TextStyle(color: Colors.white),
+                                                                    style: TextStyle(color: Colors.white,
+                                                                    fontWeight: FontWeight.w500
+                                                                    ),
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
