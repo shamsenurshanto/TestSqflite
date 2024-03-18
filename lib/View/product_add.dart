@@ -487,17 +487,16 @@ class ProductAdd extends StatelessWidget {
                                                 Container(
                                                   // width: 330,
                                                   child: Obx(
-                                                () => Wrap(
-                                                  spacing: 5.0,
-                                                  direction: Axis.horizontal,
+                                                () => Row(
+                                                  // spacing: 5.0,
+                                                  // direction: Axis.horizontal,
                                                   // Add spacing between cards (optional)
                                                   children: [
                                                     for (int i = 0;
                                                         i < controllerProductAdd.Lstring[index].length;
                                                         i++)
-                                                      Container(
-                                                          width: 110,
-                                                          height: 40,
+                                                      Flexible(
+                                                         
                                                           child: Card(
                                                               color: Color.fromARGB(255, 238, 40, 30).withOpacity(0.69),
                                                               child: Row(
