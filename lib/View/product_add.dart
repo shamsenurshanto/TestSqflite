@@ -23,7 +23,7 @@ class ProductAdd extends StatelessWidget {
   final flavour4 = TextEditingController();
   final foodName = TextEditingController();
   final priceForm = TextEditingController();
-
+  List<TextEditingController> finalTextEditingControllerList = [];
   List<String> stringList = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
   final List<String> items = ['Breakfast', 'Lunch', 'Snacks', 'Beverages', 'Others', 'Breakfast', 'Lunch'];
   String? selectedValue;
@@ -296,12 +296,14 @@ class ProductAdd extends StatelessWidget {
 
                             child: SizedBox(
                               width: 330,
-                              height: 100,
+                              height: 70,
                               child: Obx(() => ListView.builder(
                                     itemCount:
                                         controllerAttribute.attributeListModel.value!.attributeList.length,
                                     scrollDirection: Axis.horizontal,
+                                    
                                     itemBuilder: (context, index) {
+                                      finalTextEditingControllerList.add(TextEditingController());
                                       return InkWell(
                                           onTap: () {
                                             print("hello object");
@@ -310,7 +312,7 @@ class ProductAdd extends StatelessWidget {
                                           },
                                           child: Container(
                                               margin: EdgeInsets.all(2),
-                                              color: Colors.amber.withOpacity(0.3),
+                                              color:controllerAttribute.attributeListModel.value!.isSelected[index]? Colors.amber.withOpacity(0.8):Colors.amber.withOpacity(0.3),
                                               height: 60,
                                               width: 120,
                                               child: Row(
@@ -411,7 +413,7 @@ class ProductAdd extends StatelessWidget {
                                                             color: Colors.white,
                                                             margin: EdgeInsets.only(bottom: 0, left: 0),
                                                             child: TextField(
-                                                              controller: flavour1,
+                                                              controller: finalTextEditingControllerList[index],
                                                               decoration: const InputDecoration(
                                                                 contentPadding: EdgeInsets.all(10),
                                                                 border: InputBorder.none,
@@ -458,8 +460,8 @@ class ProductAdd extends StatelessWidget {
                                                         child: TextButton(
                                                           onPressed: () {
                                                             controllerProductAdd.addAttributeSize(
-                                                                index, flavour1.text);
-                                                            flavour1.clear();
+                                                                index, finalTextEditingControllerList[index].text);
+                                                            finalTextEditingControllerList[index].clear();
                                                           },
                                                           child: Text(
                                                             "Add",
