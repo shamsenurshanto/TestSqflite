@@ -1,16 +1,15 @@
 import 'package:cart_stepper/cart_stepper.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:testhive/Controller/attribute_controller.dart';
 import 'package:testhive/Controller/dashboard_controller.dart';
+import 'package:testhive/Controller/product_add_controller.dart';
 import 'package:testhive/View/dashboard.dart';
 
 import 'package:testhive/View/restaurant_profile.dart';
 
-import '../Controller/product_add_controller.dart';
 
 class ProductAdd extends StatelessWidget {
   // Define your object type (adjust properties as needed)
@@ -558,14 +557,15 @@ class ProductAdd extends StatelessWidget {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  controllerProductAdd.addProductToDB(foodName.text, priceForm.text);
-                                  controllerFoodCard.getData(stringList2[0]);
-                                  Get.back();
-
-                                  print(foodName.text);
+                                  // controllerProductAdd.addProductToDB(foodName.text, priceForm.text);
+                                  // controllerFoodCard.getData(stringList2[0]);
+                                  // Get.back();
+                                  String data = "hello i am data ";
+                                Get.toNamed('/second',arguments: data);
+                                
                                 },
                                 child: const Text(
-                                  "Save Product",
+                                  "Save Attribute",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15.0,

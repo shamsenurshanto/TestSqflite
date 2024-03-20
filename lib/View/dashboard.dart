@@ -7,7 +7,7 @@ import 'package:testhive/Controller/attribute_controller.dart';
 import 'package:testhive/Controller/dashboard_controller.dart';
 import 'package:testhive/Controller/product_add_controller.dart';
 import 'package:testhive/Model/add_to_cart_model.dart';
-import 'package:testhive/View/product_add.dart';
+import 'package:testhive/View/Product_Add/product_add.dart';
 import 'package:testhive/View/restaurant_profile.dart';
 
 class DashBoard extends StatelessWidget {

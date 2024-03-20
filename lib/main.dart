@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:testhive/View/Product_Add/sub_product_add.dart';
 import 'View/dashboard.dart';
 
 Future<void> main() async {
@@ -20,7 +21,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const DashBoard(),
+        initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => DashBoard()),
+        GetPage(name: '/second', page: () => SubProductAdd()),
+      ],
+
+      // home: const DashBoard(),
       // home: AddSql(),
     );
   }
