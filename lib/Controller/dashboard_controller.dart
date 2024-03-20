@@ -109,28 +109,32 @@ class DashboardController extends GetxController {
     ListForDisplayingInModal.clear();
   }
 
-  Future<void> getData(String search) async {
+  Future< List<Map<String, dynamic>>> getData(String search) async {
     statusShow.value = '0';
     arrayof.clear();
     print(search);
     foodListDashBoard = await controllerFoodCategory.joinTable();
-    for (final row in foodListDashBoard) {
-      print('Joined Data:');
-      print('food Details:');
-      print('foodName_name: ${row['foodName_name']}');
-      print('price: ${row['price']}');
-      print('category: ${row['category']}');
+    print(foodListDashBoard.length);
+    // for (final row in foodListDashBoard) {
+    //   print('Joined Data:');
+    //   print('food Details:');
+    //   print('foodName_name: ${row['foodName_name']}');
+    //   print('price: ${row['price']}');
+    //   print('category: ${row['category']}');
 
-      print('attribute Details:');
-      print('Name: ${row['attributeList_id']}');
-      print('Name: ${row['attributeList_name']}');
-      print('Age: ${row['attributeList_age']}');
-      print('AttributeList: ${row['attributeList']}');
-      print('---');
-    }
+    //   print('attribute Details:');
+    //   print('Name: ${row['attributeList_id']}');
+    //   print('Name: ${row['attributeList_name']}');
+    //   print('Age: ${row['attributeList_age']}');
+    //   print('AttributeList: ${row['attributeList']}');
+    //   print('---');
+    // }
+    
 
     Timer(Duration(seconds: 2), () {
       statusShow.value = '1';
+      
     });
+    return foodListDashBoard;
   }
 }

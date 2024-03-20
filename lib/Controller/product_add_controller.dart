@@ -115,7 +115,7 @@ class ProductAddController extends GetxController {
           attributeList: Lstring[i].toList());
       controllerFood.insertAttributeList(attributeList);
     }
-    controllerFood.printJoinedData();
+    // controllerFood.printJoinedData();
     // controllerFood.deleteFoodAndAttributelistTable();
   }
 }
