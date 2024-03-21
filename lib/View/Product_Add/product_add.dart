@@ -558,13 +558,13 @@ class ProductAdd extends StatelessWidget {
                               child: TextButton(
                                 onPressed: () async {
                                  await controllerProductAdd.addProductToDB(foodName.text, priceForm.text);
-                                List<Map<String, dynamic>>  statusCheck =  await  controllerFoodCard.getData(stringList2[0]);
+                                List<Map<String, dynamic>>  passTOSubProductAdd =  await  controllerFoodCard.getData(stringList2[0]);
                                   // Get.back();
-                                  if(statusCheck.isNotEmpty)
+                                  if(passTOSubProductAdd.isNotEmpty)
                                   {
                                       // List<Map<String, dynamic>> data = "Hello from First Page";
                                      print(controllerFoodCard.foodListDashBoard.length);
-                                      Get.toNamed('/second', arguments: statusCheck);
+                                     Get.toNamed('/second', arguments: passTOSubProductAdd);
                                   }
                              
                                 

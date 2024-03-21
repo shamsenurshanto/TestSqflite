@@ -18,11 +18,23 @@ class SubProductAdd extends StatelessWidget {
        
         final List<Map<String, dynamic>>  data = Get.arguments;
         int index =0;
-        data.forEach((element) {
-          print(element);
+        int firstIdOnly=-1;
+        data.forEach((element) {    
+           
+           if(firstIdOnly==element['foodName_id'])
+          {
+            //  print(element); 
            controllerFoodCard.foodListDashBoard.add(element);
+          }
+           if(firstIdOnly==-1)
+          {
+            //  print(element);     
+             firstIdOnly = element['foodName_id']; 
+             controllerFoodCard.foodListDashBoard.add(element);
+          }
            
         });
+        print(controllerFoodCard.foodListDashBoard.length);
        
 
        
@@ -30,9 +42,7 @@ class SubProductAdd extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Center(
-            child: Text("hhelo"),
-          ),
+         
          SingleChildScrollView(
                 child: Container(
                     // height: 800,
@@ -97,12 +107,13 @@ class SubProductAdd extends StatelessWidget {
                               height: 700,
                               width: 300,
                               child: ListView.builder(
-                                  itemCount: controllerFoodCard.productDetailsList.length,
+                                  itemCount: controllerFoodCard.foodListDashBoard.length,
                                   itemBuilder: (BuildContext contex, int index) {
-                                    print(controllerFoodCard.productDetailsList[index].values);
+                                    // print(controllerFoodCard.productDetailsList[index].values);
                                     print('values');
 
-                                    Widget textWidget = buildTextFromMap(controllerFoodCard.productDetailsList[index]);
+                                    Widget textWidget = buildTextFromMap(controllerFoodCard.foodListDashBoard[index]);
+                                      print('values2');
                                     // controllerFoodCard.productDetailsList.refresh();
                                     // print(index);
                                     return Wrap(
@@ -123,75 +134,86 @@ class SubProductAdd extends StatelessWidget {
       ),
     );
   }
-   Widget buildTextFromMap(Map<String, List<String>> data) {
+   Widget buildTextFromMap(Map<String, dynamic> data) {
     List<Widget> widgets = [];
-    print(data);
+    
     var boolListForAttributeValuesButton = <bool>[].obs;
    
-    data.forEach((key, value) {
-      print(value);
-      print('valiu');
-      if (value[0].isNotEmpty)
-        widgets.add(Column(
+    print(data['foodName_name']+' '+data['foodName_id'].toString()+' '+data['attributeList_name']+ data['attributeList'].toString());
+    List <String> attributeListFromFoodDashboardList = data['attributeList'].split(',');
+    attributeListFromFoodDashboardList.forEach((element) {
+      print(element);
+    });
+    print('data buildTextFromMap '+attributeListFromFoodDashboardList[0]);
+    if (attributeListFromFoodDashboardList[0].length>0)
+     widgets.add(Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 00.0, top: 30),
               child: Text(
-                '$key',
+                data['attributeList_name'],
                 style: GoogleFonts.laila(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.grey),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              height: 50, // Adjust the height as needed
-              width: 300,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: value.length,
-                itemBuilder: (BuildContext context, int index) {
+               ),
+           
+                  Container(
+          margin: EdgeInsets.only(top: 10),
+         // Adjust the height as needed
+          width: 300,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Wrap(
+              children: List.generate(
+                attributeListFromFoodDashboardList.length,
+                (index) {
                   boolListForAttributeValuesButton.add(false);
-                  return Padding(
+                  return Flexible(
+                    child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Obx(() => InkWell(
-                            onTap: () {
-                              print("clicked");
-                              boolListForAttributeValuesButton[index] = !boolListForAttributeValuesButton[index];
-                            },
-                            child:  Container(
-                                // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                                // margin: EdgeInsets.all(3),
-
-                                decoration: BoxDecoration(
-                                  color: boolListForAttributeValuesButton[index]
-                                      ? Colors.deepPurpleAccent.withOpacity(0.2)
-                                      : Colors.grey.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(0), // Rounded border radius
-                                  border: Border.all(
+                      child: Obx(
+                        () => InkWell(
+                          onTap: () {
+                            print("clicked");
+                            boolListForAttributeValuesButton[index] = !boolListForAttributeValuesButton[index];
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: boolListForAttributeValuesButton[index]
+                                  ? Colors.deepPurpleAccent.withOpacity(0.2)
+                                  : Colors.grey.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(0), // Rounded border radius
+                              border: Border.all(
+                                color: boolListForAttributeValuesButton[index] ? Colors.deepPurpleAccent : Colors.grey,
+                                width: 2,
+                              ),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  attributeListFromFoodDashboardList[index],
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
                                     color: boolListForAttributeValuesButton[index] ? Colors.deepPurpleAccent : Colors.grey,
-                                    width: 2,
                                   ),
                                 ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      value[index],
-                                      style: GoogleFonts.laila(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                        color: boolListForAttributeValuesButton[index] ? Colors.deepPurpleAccent : Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                )),
-                          )));
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
                 },
               ),
-            )
-          ],
+            ),
+          ),
+        )
+
+             ],
         ));
-    });
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
