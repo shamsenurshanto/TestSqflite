@@ -30,11 +30,18 @@ class DemoController extends GetxController {
   RxBool indiSpiceAttribute = RxBool(false);
   var arrayof = <int>[].obs;
   var productDetailsList = <Map<String, List<String>>>[].obs;
+
+
   var categoryList =<String>['Tea'].obs;
+  RxInt priceVariationNumber = RxInt(1);
+
 
   @override
   void onInit() {
     // TODO: implement onInit
+  }
+  setpriceVariationNumber(){
+    priceVariationNumber.value++;
   }
 
 }
