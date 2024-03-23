@@ -23,7 +23,7 @@ class DemoController extends GetxController {
   RxInt indexOfClickedButton = RxInt(0);
 
   RxString statusShow = RxString("1");
-  RxBool indiSizeAttribute = RxBool(false);
+  RxBool addCategoryFirst = RxBool(false);
 
   RxBool indiFlavAttribute = RxBool(false);
 
@@ -34,6 +34,8 @@ class DemoController extends GetxController {
 
   var categoryList =<String>['Tea'].obs;
   RxInt priceVariationNumber = RxInt(1);
+  RxInt forLoopNo1 = RxInt(0);
+  var categoryListWhichContainsAllVariations = <bool>[].obs;
 
 
   @override
@@ -42,6 +44,9 @@ class DemoController extends GetxController {
   }
   setpriceVariationNumber(){
     priceVariationNumber.value++;
+  }
+  setAddCategoryFirst(){
+    addCategoryFirst.value=!addCategoryFirst.value;
   }
 
 }
