@@ -130,7 +130,37 @@ class SubProductAdd extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              showBottomModal(context);
+
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Enter Your Name'),
+                    content: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter your name',
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Close'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // Add functionality to save the entered name
+
+                          Navigator.of(context).pop();
+                          showBottomModal(context);
+                        },
+                        child: Text('Save'),
+                      ),
+                    ],
+                  );
+                },
+              );
               print('Floating Action Button pressed');
             },
             child: Icon(
@@ -156,7 +186,7 @@ class SubProductAdd extends StatelessWidget {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
-          height: 800,
+          height: 600,
           // width: 320,
           color: Colors.white,
           padding: const EdgeInsets.all(20.0),

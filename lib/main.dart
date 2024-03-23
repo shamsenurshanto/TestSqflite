@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:testhive/View/Demo%20view/demo.dart';
 import 'package:testhive/View/Product_Add/sub_product_add.dart';
 import 'View/dashboard.dart';
 
@@ -21,10 +22,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-        initialRoute: '/',
+        initialRoute: '/demoDartView',
       getPages: [
         GetPage(name: '/', page: () => DashBoard()),
         GetPage(name: '/second', page: () => SubProductAdd()),
+         GetPage(name: '/demoDartView', page: () => demoDartView()),
       ],
 
       // home: const DashBoard(),
