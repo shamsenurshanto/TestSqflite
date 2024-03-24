@@ -28,7 +28,7 @@ class DemoController extends GetxController {
   var arrayof = <int>[].obs;
   var productDetailsList = <Map<String, List<String>>>[].obs;
 
-  var categoryList = <String>['Tea'].obs;
+  var categoryList = <String>[].obs;
   RxInt priceVariationNumber = RxInt(0);
   RxInt forLoopNo1 = RxInt(0);
   var categoryListWhichContainsAllVariations = <bool>[].obs;
@@ -90,26 +90,51 @@ class DemoController extends GetxController {
 
   setpriceVariationNumber(List<TextEditingController> texteditingController) {
     priceVariationNumber.value++;
-    // priceAndVarriationAddingTextControllerList.clear();
-    // priceAndVarriationAddingTextControllerList = priceAndVarriationAddingTextController[i]!.toList();
-    // priceAndVarriationAddingTextControllerList.add(TextEditingController());
-    // priceAndVarriationAddingTextController[i] = priceAndVarriationAddingTextControllerList.toList();
     texteditingController.add(TextEditingController());
+    itemVarriationPriceModel.refresh();
   }
 
   setPriceAndVarriationAddingTextControllerFirsTime() {
-    // if (priceAndVarriationAddingTextController.length == 0) {
-    //   priceAndVarriationAddingTextControllerList.clear();
-    //   priceAndVarriationAddingTextControllerList.add(TextEditingController());
-    //   priceAndVarriationAddingTextController[0] = priceAndVarriationAddingTextControllerList.toList();
-    // }
-    // priceVariationNumber
+    if (itemVarriationPriceModel.length == 0) {
+      priceAndVarriationAddingTextControllerList.clear();
+      List<TextEditingController> demoList = [];
+      priceAndVarriationAddingTextControllerList.add(TextEditingController());
+      demoList.addAll(priceAndVarriationAddingTextControllerList);
+
+      ItemVarriationPriceModel itemVarriationPriceModel2 =
+          new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList);
+      itemVarriationPriceModel.add(itemVarriationPriceModel2);
+      itemVarriationPriceModel.refresh();
+      print("here");
+    }
+  }
+
+  setPriceAndVarriationAddingTextController() {
+    List<TextEditingController> demoList = [];
+    priceAndVarriationAddingTextControllerList.add(TextEditingController());
+    demoList.addAll(priceAndVarriationAddingTextControllerList);
     ItemVarriationPriceModel itemVarriationPriceModel2 =
-        new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: priceAndVarriationAddingTextControllerList);
+        new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList);
     itemVarriationPriceModel.add(itemVarriationPriceModel2);
+    itemVarriationPriceModel.refresh();
+    print("here many time session ");
   }
 
   setAddCategoryFirst() {
     addCategoryFirst.value = !addCategoryFirst.value;
+  }
+
+  setNewCategoryList() {
+    // categoryList.addAll([...,txt]);
+    List<TextEditingController> demoList = [];
+    List<TextEditingController> demoList2 = [];
+    // priceAndVarriationAddingTextControllerList.clear();
+    // priceAndVarriationAddingTextControllerList.add();
+    demoList2.add(TextEditingController());
+    demoList.addAll(demoList2);
+    ItemVarriationPriceModel itemVarriationPriceModel2 =
+        new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList);
+    itemVarriationPriceModel.add(itemVarriationPriceModel2);
+    itemVarriationPriceModel.refresh();
   }
 }

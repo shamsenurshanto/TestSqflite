@@ -141,10 +141,13 @@ class demoDartView extends StatelessWidget {
 
                                         CategoryModel categoryModel =
                                             new CategoryModel(name: demoController.addCategoryTextController.text);
-                                        await demoController.insertCategoryModel(categoryModel);
-                                        await demoController.printData();
+                                        // await demoController.insertCategoryModel(categoryModel);
+                                        // await demoController.printData();
+                                        // demoController.categoryList.value.add(demoController.addCategoryTextController.text);
                                         demoController.setAddCategoryFirst();
+                                        demoController.setNewCategoryList();
                                         demoController.addCategoryTextController.clear();
+                                        // demoController.setPriceAndVarriationAddingTextController();
                                       },
                                       child: Container(
                                         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -226,7 +229,7 @@ class demoDartView extends StatelessWidget {
 
                     //// Added category te add dish
                     /// first loop 1
-                    for (int i = 0; i < 2; i++)
+                    for (int i = 0; i < demoController.itemVarriationPriceModel.length; i++)
                       Container(
                         margin: EdgeInsets.only(top: 5, bottom: 5),
                         child: Column(
@@ -255,7 +258,7 @@ class demoDartView extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 15.0),
                                       child: Text(
-                                        "Tea ",
+                                        demoController.itemVarriationPriceModel[i].id.toString(), //// tea
                                         style: GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
                                       ),
                                     ),
@@ -293,7 +296,7 @@ class demoDartView extends StatelessWidget {
                                               style:
                                                   GoogleFonts.roboto(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.pinkAccent),
                                             ),
-                                            for (int i = 0; i < 3; i++)
+                                            for (int i3 = 0; i3 < 3; i3++) // loop 3
                                               Row(
                                                 children: [
                                                   SizedBox(
@@ -420,112 +423,112 @@ class demoDartView extends StatelessWidget {
                                               ],
                                             ),
                                             //item nam
-                                            for (int i = 0; i < demoController.itemVarriationPriceModel.length; i++)
-                                              for (int j = 0;
-                                                  j < demoController.itemVarriationPriceModel[i].texteditingController.length;
-                                                  j++)
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      height: 54,
-                                                      width: 180,
-                                                      margin: EdgeInsets.only(top: 10),
-                                                      padding: EdgeInsets.only(left: 20.0),
-                                                      child: TextFormField(
-                                                        controller: demoController.itemVarriationPriceModel[i].texteditingController[j],
-                                                        decoration: InputDecoration(
-                                                          labelText: "আইটেম নাম ",
-                                                          labelStyle: GoogleFonts.laila(
-                                                              fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
-                                                          // hintText: "ex: Burger",
-                                                          filled: true,
-                                                          fillColor: Colors.grey[100],
-                                                          border: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            // Adjust border radius to make it sharper
-                                                            borderSide: BorderSide.none,
-                                                          ),
-                                                          enabledBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            // Adjust border radius to make it sharper
-                                                            borderSide:
-                                                                BorderSide(color: Colors.grey.shade300, width: 1.0), // Adjust border width
-                                                          ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            // Adjust border radius to make it sharper
-                                                            borderSide:
-                                                                BorderSide(color: const Color.fromARGB(100, 230, 127, 161), width: 1.0),
+
+                                            for (int j = 0;
+                                                j < demoController.itemVarriationPriceModel[i].texteditingController.length;
+                                                j++)
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    height: 54,
+                                                    width: 180,
+                                                    margin: EdgeInsets.only(top: 10),
+                                                    padding: EdgeInsets.only(left: 20.0),
+                                                    child: TextFormField(
+                                                      controller: demoController.itemVarriationPriceModel[i].texteditingController[j],
+                                                      decoration: InputDecoration(
+                                                        labelText: "আইটেম নাম ",
+                                                        labelStyle: GoogleFonts.laila(
+                                                            fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
+                                                        // hintText: "ex: Burger",
+                                                        filled: true,
+                                                        fillColor: Colors.grey[100],
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          // Adjust border radius to make it sharper
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          // Adjust border radius to make it sharper
+                                                          borderSide:
+                                                              BorderSide(color: Colors.grey.shade300, width: 1.0), // Adjust border width
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          // Adjust border radius to make it sharper
+                                                          borderSide:
+                                                              BorderSide(color: const Color.fromARGB(100, 230, 127, 161), width: 1.0),
+                                                        ),
+                                                      ),
+                                                      keyboardType: TextInputType.name,
+                                                      style: GoogleFonts.roboto(
+                                                          fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    height: 54,
+                                                    width: 80,
+                                                    padding: EdgeInsets.only(left: 5),
+                                                    child: TextFormField(
+                                                      controller: textEditingController,
+                                                      decoration: InputDecoration(
+                                                        labelText: " প্রাইস",
+                                                        labelStyle: GoogleFonts.laila(
+                                                            fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
+                                                        // hintText: "ex: Burger",
+                                                        filled: true,
+                                                        fillColor: Colors.grey[100],
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          // Adjust border radius to make it sharper
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          // Adjust border radius to make it sharper
+                                                          borderSide:
+                                                              BorderSide(color: Colors.grey.shade300, width: 1.0), // Adjust border width
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          // Adjust border radius to make it sharper
+                                                          borderSide:
+                                                              BorderSide(color: const Color.fromARGB(100, 230, 127, 161), width: 1.0),
+                                                        ),
+                                                      ),
+                                                      keyboardType: TextInputType.number,
+                                                      style: GoogleFonts.roboto(
+                                                          fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    height: 40,
+                                                    width: 30,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            print("h");
+                                                          },
+                                                          child: Icon(
+                                                            Icons.delete_outline_outlined,
+                                                            color: Colors.pinkAccent,
+                                                            size: 24,
                                                           ),
                                                         ),
-                                                        keyboardType: TextInputType.name,
-                                                        style: GoogleFonts.roboto(
-                                                            fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
-                                                      ),
+                                                        SizedBox(
+                                                          height: 7,
+                                                        )
+                                                      ],
                                                     ),
-                                                    Container(
-                                                      height: 54,
-                                                      width: 80,
-                                                      padding: EdgeInsets.only(left: 5),
-                                                      child: TextFormField(
-                                                        controller: textEditingController,
-                                                        decoration: InputDecoration(
-                                                          labelText: " প্রাইস",
-                                                          labelStyle: GoogleFonts.laila(
-                                                              fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
-                                                          // hintText: "ex: Burger",
-                                                          filled: true,
-                                                          fillColor: Colors.grey[100],
-                                                          border: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            // Adjust border radius to make it sharper
-                                                            borderSide: BorderSide.none,
-                                                          ),
-                                                          enabledBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            // Adjust border radius to make it sharper
-                                                            borderSide:
-                                                                BorderSide(color: Colors.grey.shade300, width: 1.0), // Adjust border width
-                                                          ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            // Adjust border radius to make it sharper
-                                                            borderSide:
-                                                                BorderSide(color: const Color.fromARGB(100, 230, 127, 161), width: 1.0),
-                                                          ),
-                                                        ),
-                                                        keyboardType: TextInputType.number,
-                                                        style: GoogleFonts.roboto(
-                                                            fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: 40,
-                                                      width: 30,
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              print("h");
-                                                            },
-                                                            child: Icon(
-                                                              Icons.delete_outline_outlined,
-                                                              color: Colors.pinkAccent,
-                                                              size: 24,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 7,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                )
+                                                  )
+                                                ],
+                                              )
                                           ],
                                         ),
                                       ),
