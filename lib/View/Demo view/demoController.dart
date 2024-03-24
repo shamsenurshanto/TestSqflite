@@ -35,8 +35,14 @@ class DemoController extends GetxController {
   TextEditingController addCategoryTextController = new TextEditingController(); // category add korun
   Map<int, List<TextEditingController>> textEditingControllerMap = {};
   var priceAndVarriationAddingTextController = <int, List<TextEditingController>>{}.obs;
+
   List<TextEditingController> priceAndVarriationAddingTextControllerList = [];
+  List<TextEditingController> individualItemsPriceTextControllerList = [];
   var itemVarriationPriceModel = <ItemVarriationPriceModel>[].obs;
+
+  var individualCategoryMainItemName = <TextEditingController>[].obs;
+  var individualCategoryMainItemNameBoolList = <bool>[].obs; /// if the item should show or not
+
 
   @override
   Future<void> onInit() async {
@@ -88,53 +94,81 @@ class DemoController extends GetxController {
     } catch (e) {}
   }
 
-  setpriceVariationNumber(List<TextEditingController> texteditingController) {
+  setpriceVariationNumber(List<TextEditingController> texteditingController,List<TextEditingController> texteditingControllerPrice) {
     priceVariationNumber.value++;
     texteditingController.add(TextEditingController());
+    texteditingControllerPrice.add(TextEditingController());
     itemVarriationPriceModel.refresh();
   }
-
-  setPriceAndVarriationAddingTextControllerFirsTime() {
-    if (itemVarriationPriceModel.length == 0) {
-      priceAndVarriationAddingTextControllerList.clear();
-      List<TextEditingController> demoList = [];
-      priceAndVarriationAddingTextControllerList.add(TextEditingController());
-      demoList.addAll(priceAndVarriationAddingTextControllerList);
-
-      ItemVarriationPriceModel itemVarriationPriceModel2 =
-          new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList);
-      itemVarriationPriceModel.add(itemVarriationPriceModel2);
-      itemVarriationPriceModel.refresh();
-      print("here");
+  printAllTextEditingOfOneCategory(int index){
+    print(individualCategoryMainItemName[index].text);
+    for(int i=0;i< itemVarriationPriceModel[index].texteditingController.length;i++){
+      print(itemVarriationPriceModel[index].texteditingController[i].text+"   "+itemVarriationPriceModel[index].texteditingControllerForPrice[i].text);
     }
+
   }
 
-  setPriceAndVarriationAddingTextController() {
-    List<TextEditingController> demoList = [];
-    priceAndVarriationAddingTextControllerList.add(TextEditingController());
-    demoList.addAll(priceAndVarriationAddingTextControllerList);
-    ItemVarriationPriceModel itemVarriationPriceModel2 =
-        new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList);
-    itemVarriationPriceModel.add(itemVarriationPriceModel2);
-    itemVarriationPriceModel.refresh();
-    print("here many time session ");
-  }
+  // setPriceAndVarriationAddingTextControllerFirsTime(int index) {
+  //   if (itemVarriationPriceModel.length == 0) {
+  //     priceAndVarriationAddingTextControllerList.clear();
+  //     individualItemsPriceTextControllerList.clear();
+  //     List<TextEditingController> demoList = [];
+  //     List<TextEditingController> demoListForPrice = [];
+  //     priceAndVarriationAddingTextControllerList.add(TextEditingController());
+  //     individualItemsPriceTextControllerList.add(TextEditingController());
+  //     demoListForPrice.addAll(individualItemsPriceTextControllerList);
+  //     demoList.addAll(priceAndVarriationAddingTextControllerList);
+  //     // individualCategoryMainItemName.clear();
+  //     individualCategoryMainItemName.add(TextEditingController());
+  //
+  //     ItemVarriationPriceModel itemVarriationPriceModel2 =
+  //         new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList, texteditingControllerForPrice: demoListForPrice,  name: individualCategoryMainItemName[index].text);
+  //     itemVarriationPriceModel.add(itemVarriationPriceModel2);
+  //     itemVarriationPriceModel.refresh();
+  //     print("here");
+  //   }
+  // }
+
+  // setPriceAndVarriationAddingTextController(int index) {
+  //   List<TextEditingController> demoList = [];
+  //   List<TextEditingController> demoListPrice = [];
+  //   priceAndVarriationAddingTextControllerList.add(TextEditingController());
+  //   individualItemsPriceTextControllerList.add(TextEditingController());
+  //   demoList.addAll(priceAndVarriationAddingTextControllerList);
+  //   demoListPrice.addAll(individualItemsPriceTextControllerList);
+  //   ItemVarriationPriceModel itemVarriationPriceModel2 =
+  //       new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList,texteditingControllerForPrice: demoListPrice, name:individualCategoryMainItemName[index].text);
+  //   itemVarriationPriceModel.add(itemVarriationPriceModel2);
+  //   itemVarriationPriceModel.refresh();
+  //   print("here many time session ");
+  // }
 
   setAddCategoryFirst() {
     addCategoryFirst.value = !addCategoryFirst.value;
   }
 
-  setNewCategoryList() {
+  setNewCategoryList(String txt) {
     // categoryList.addAll([...,txt]);
     List<TextEditingController> demoList = [];
     List<TextEditingController> demoList2 = [];
+
+    List<TextEditingController> demoListPrice = [];
+    List<TextEditingController> demoListPrice2 = [];
     // priceAndVarriationAddingTextControllerList.clear();
     // priceAndVarriationAddingTextControllerList.add();
+    demoListPrice2.add(TextEditingController());
+    demoListPrice.addAll(demoListPrice2);
+
     demoList2.add(TextEditingController());
     demoList.addAll(demoList2);
     ItemVarriationPriceModel itemVarriationPriceModel2 =
-        new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList);
+        new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList, texteditingControllerForPrice:demoListPrice , name: txt );
     itemVarriationPriceModel.add(itemVarriationPriceModel2);
     itemVarriationPriceModel.refresh();
+    individualCategoryMainItemName.add(TextEditingController());
+    individualCategoryMainItemNameBoolList.add(false);
+  }
+  setPriceVarriationTrueOrFalse(int index){
+    individualCategoryMainItemNameBoolList[index]=!individualCategoryMainItemNameBoolList[index];
   }
 }

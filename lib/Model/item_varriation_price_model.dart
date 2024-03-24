@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 
 class ItemVarriationPriceModel {
   int id;
-  List<TextEditingController> texteditingController;
+  String name;//cat name
+  List<TextEditingController> texteditingController;//for names
+  List<TextEditingController> texteditingControllerForPrice;//for price
+
 
   // Constructor
-  ItemVarriationPriceModel({required this.id, required this.texteditingController});
+  ItemVarriationPriceModel({required this.id, required this.texteditingController,required this.name,required this.texteditingControllerForPrice});
   // Method to convert AddToCartModel object to a map
   Map<String, Object?> toMap() {
     return {
