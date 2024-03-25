@@ -41,13 +41,13 @@ class DemoController extends GetxController {
   var itemVarriationPriceModel = <ItemVarriationPriceModel>[].obs;
 
   var individualCategoryMainItemName = <TextEditingController>[].obs;
-  var individualCategoryMainItemNameBoolList = <bool>[].obs; /// if the item should show or not
+  var individualCategoryMainItemNameBoolList = <bool>[].obs;
 
+  /// if the item should show or not
 
   @override
   Future<void> onInit() async {
     // TODO: implement onInit
-    // createTable();
     //
     // await insertCategoryModel(categoryModel);
     // printData();
@@ -59,20 +59,50 @@ class DemoController extends GetxController {
       await db.execute(
         'CREATE TABLE categoryModel(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)',
       );
+      await db.execute(
+        'CREATE TABLE foodCreateModel(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)',
+      );
     } catch (e) {
       print(e);
       print("jel");
     }
   }
 
+  Future<int> getLastAddedToFoodCreateModelId() async {
+    final db = await openDatabase('my_database.db');
+    List<Map<String, dynamic>> result = await db.rawQuery('''
+    SELECT foodCreateModel.id as foodName_id FROM foodCreateModel ORDER BY id  DESC LIMIT 1''');
+    return result[0]['foodName_id'];
+  }
+
   Future<void> insertCategoryModel(CategoryModel categoryModel) async {
     // Get a reference to the database.
     final db = await openDatabase('my_database.db');
-    await db.insert(
-      'categoryModel',
-      categoryModel.toMap(),
-      // conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    try {
+      await db.insert(
+        'categoryModel',
+        categoryModel.toMap(),
+        // conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<int> insertFoodCreateModel(FoodCreateModel foodCreateModel) async {
+    // Get a reference to the database.
+    final db = await openDatabase('my_database.db');
+    try {
+      await db.insert(
+        'foodCreateModel',
+        foodCreateModel.toMap(),
+        // conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      print(e);
+    }
+    int id = await getLastAddedToFoodCreateModelId();
+    return id;
   }
 
   Future<List<Map<String, dynamic>>> getAllFromCategoryModel() async {
@@ -94,18 +124,23 @@ class DemoController extends GetxController {
     } catch (e) {}
   }
 
-  setpriceVariationNumber(List<TextEditingController> texteditingController,List<TextEditingController> texteditingControllerPrice) {
+  setpriceVariationNumber(List<TextEditingController> texteditingController, List<TextEditingController> texteditingControllerPrice) {
     priceVariationNumber.value++;
     texteditingController.add(TextEditingController());
     texteditingControllerPrice.add(TextEditingController());
     itemVarriationPriceModel.refresh();
   }
-  printAllTextEditingOfOneCategory(int index){
-    print(individualCategoryMainItemName[index].text);
-    for(int i=0;i< itemVarriationPriceModel[index].texteditingController.length;i++){
-      print(itemVarriationPriceModel[index].texteditingController[i].text+"   "+itemVarriationPriceModel[index].texteditingControllerForPrice[i].text);
-    }
 
+  printAllTextEditingOfOneCategory(int index) async {
+    FoodCreateModel foodCreateModel = new FoodCreateModel(name: individualCategoryMainItemName[index].text);
+    await insertFoodCreateModel(foodCreateModel);
+    int id = await getLastAddedToFoodCreateModelId();
+    print(individualCategoryMainItemName[index].text);
+    for (int i = 0; i < itemVarriationPriceModel[index].texteditingController.length; i++) {
+      print(itemVarriationPriceModel[index].texteditingController[i].text +
+          "   " +
+          itemVarriationPriceModel[index].texteditingControllerForPrice[i].text);
+    }
   }
 
   // setPriceAndVarriationAddingTextControllerFirsTime(int index) {
@@ -147,13 +182,32 @@ class DemoController extends GetxController {
     addCategoryFirst.value = !addCategoryFirst.value;
   }
 
-  setNewCategoryList(String txt) {
+  setItemVarriationPriceModel() async {
+    //here we will update  individualCategoryMainItemNameBoolList from database
+
+    try {
+      final joinedData = await getAllFromCategoryModel();
+      itemVarriationPriceModel.clear();
+      for (final row in joinedData) {
+        print('Print Data:');
+        print('categoryModel Details:');
+        print('categoryModel_name: ${row['categoryModel_name']}');
+        print('categoryModel_id: ${row['categoryModel_id']}');
+        print('---------');
+        setNewCategoryList(row['categoryModel_name'], row['categoryModel_id']); // add every time
+      }
+      itemVarriationPriceModel.refresh();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  setNewCategoryList(String txt, int index) {
     // categoryList.addAll([...,txt]);
     List<TextEditingController> demoList = [];
-    List<TextEditingController> demoList2 = [];
-
+    List<TextEditingController> demoList2 = []; // for adding names (item nam)
     List<TextEditingController> demoListPrice = [];
-    List<TextEditingController> demoListPrice2 = [];
+    List<TextEditingController> demoListPrice2 = []; // for their prices (right side)
     // priceAndVarriationAddingTextControllerList.clear();
     // priceAndVarriationAddingTextControllerList.add();
     demoListPrice2.add(TextEditingController());
@@ -162,13 +216,14 @@ class DemoController extends GetxController {
     demoList2.add(TextEditingController());
     demoList.addAll(demoList2);
     ItemVarriationPriceModel itemVarriationPriceModel2 =
-        new ItemVarriationPriceModel(id: priceVariationNumber.value, texteditingController: demoList, texteditingControllerForPrice:demoListPrice , name: txt );
+        new ItemVarriationPriceModel(id: index, texteditingController: demoList, texteditingControllerForPrice: demoListPrice, name: txt);
     itemVarriationPriceModel.add(itemVarriationPriceModel2);
     itemVarriationPriceModel.refresh();
     individualCategoryMainItemName.add(TextEditingController());
     individualCategoryMainItemNameBoolList.add(false);
   }
-  setPriceVarriationTrueOrFalse(int index){
-    individualCategoryMainItemNameBoolList[index]=!individualCategoryMainItemNameBoolList[index];
+
+  setPriceVarriationTrueOrFalse(int index) {
+    individualCategoryMainItemNameBoolList[index] = !individualCategoryMainItemNameBoolList[index];
   }
 }

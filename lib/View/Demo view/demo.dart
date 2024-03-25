@@ -14,7 +14,9 @@ class demoDartView extends StatelessWidget {
     final DemoController demoController = new DemoController();
     TextEditingController textEditingController = new TextEditingController();
     // demoController.setPriceAndVarriationAddingTextControllerFirsTime();
-    // demoController.createTable();
+    demoController.createTable(); //temp function later i will change it's place
+    demoController.setItemVarriationPriceModel(); //temp function later i will change it 's place
+
     // CategoryModel categoryModel = new CategoryModel(name: "Pizza");
     // demoController.insertCategoryModel(categoryModel);
     // demoController.printData();
@@ -141,11 +143,13 @@ class demoDartView extends StatelessWidget {
 
                                         CategoryModel categoryModel =
                                             new CategoryModel(name: demoController.addCategoryTextController.text);
-                                        // await demoController.insertCategoryModel(categoryModel);
-                                        // await demoController.printData();
+                                        await demoController.insertCategoryModel(categoryModel);
+                                        await demoController.printData();
                                         // demoController.categoryList.value.add(demoController.addCategoryTextController.text);
                                         demoController.setAddCategoryFirst();
-                                        demoController.setNewCategoryList(demoController.addCategoryTextController.text); // first time add category
+                                        demoController.setItemVarriationPriceModel(); //refresh the list after added the category !
+
+                                        // demoController.setNewCategoryList(demoController.addCategoryTextController.text); // first time add category
                                         demoController.addCategoryTextController.clear();
                                         // demoController.setPriceAndVarriationAddingTextController();
                                       },
@@ -376,7 +380,7 @@ class demoDartView extends StatelessWidget {
                                                 decoration: InputDecoration(
                                                   labelText: "আইটেম নাম ",
                                                   labelStyle:
-                                                  GoogleFonts.laila(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
+                                                      GoogleFonts.laila(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
                                                   // hintText: "ex: Burger",
                                                   filled: true,
                                                   fillColor: Colors.grey[100],
@@ -473,7 +477,8 @@ class demoDartView extends StatelessWidget {
                                                     width: 80,
                                                     padding: EdgeInsets.only(left: 5),
                                                     child: TextFormField(
-                                                      controller: demoController.itemVarriationPriceModel[i].texteditingControllerForPrice[j],
+                                                      controller:
+                                                          demoController.itemVarriationPriceModel[i].texteditingControllerForPrice[j],
                                                       decoration: InputDecoration(
                                                         labelText: " প্রাইস",
                                                         labelStyle: GoogleFonts.laila(
@@ -552,7 +557,8 @@ class demoDartView extends StatelessWidget {
                                               onTap: () {
                                                 print("add dish 2");
                                                 demoController.setpriceVariationNumber(
-                                                    demoController.itemVarriationPriceModel[i].texteditingController,demoController.itemVarriationPriceModel[i].texteditingControllerForPrice);
+                                                    demoController.itemVarriationPriceModel[i].texteditingController,
+                                                    demoController.itemVarriationPriceModel[i].texteditingControllerForPrice);
                                                 print("i" +
                                                     i.toString() +
                                                     " " +
@@ -571,6 +577,8 @@ class demoDartView extends StatelessWidget {
                                               onTap: () async {
                                                 print('item add korun ');
                                                 demoController.printAllTextEditingOfOneCategory(i);
+                                                FoodCreateModel foodCreateModel = new FoodCreateModel(name: )
+
                                               },
                                               child: Container(
                                                 width: 90,
