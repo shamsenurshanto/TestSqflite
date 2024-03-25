@@ -14,12 +14,14 @@ class demoDartView extends StatelessWidget {
     final DemoController demoController = new DemoController();
     TextEditingController textEditingController = new TextEditingController();
     // demoController.setPriceAndVarriationAddingTextControllerFirsTime();
+    // demoController.deleteFoodAndAttributelistTable();
     demoController.createTable(); //temp function later i will change it's place
     demoController.setItemVarriationPriceModel(); //temp function later i will change it 's place
 
     // CategoryModel categoryModel = new CategoryModel(name: "Pizza");
     // demoController.insertCategoryModel(categoryModel);
     // demoController.printData();
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -144,7 +146,7 @@ class demoDartView extends StatelessWidget {
                                         CategoryModel categoryModel =
                                             new CategoryModel(name: demoController.addCategoryTextController.text);
                                         await demoController.insertCategoryModel(categoryModel);
-                                        await demoController.printData();
+                                        // await demoController.printData();
                                         // demoController.categoryList.value.add(demoController.addCategoryTextController.text);
                                         demoController.setAddCategoryFirst();
                                         demoController.setItemVarriationPriceModel(); //refresh the list after added the category !
@@ -577,8 +579,7 @@ class demoDartView extends StatelessWidget {
                                               onTap: () async {
                                                 print('item add korun ');
                                                 demoController.printAllTextEditingOfOneCategory(i);
-                                                FoodCreateModel foodCreateModel = new FoodCreateModel(name: )
-
+                                                // FoodCreateModel foodCreateModel = new FoodCreateModel(name: )
                                               },
                                               child: Container(
                                                 width: 90,

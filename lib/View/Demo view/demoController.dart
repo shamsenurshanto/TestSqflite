@@ -57,10 +57,13 @@ class DemoController extends GetxController {
     try {
       final db = await openDatabase('my_database.db');
       await db.execute(
-        'CREATE TABLE categoryModel(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)',
+        'CREATE TABLE IF NOT EXISTS allProductModel(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,attrName Text,price DOUBLE,foodId INTEGER,catId INTEGER)',
       );
       await db.execute(
-        'CREATE TABLE foodCreateModel(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)',
+        'CREATE TABLE IF NOT EXISTS categoryModel(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)',
+      );
+      await db.execute(
+        'CREATE TABLE IF NOT EXISTS foodCreateModel(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)',
       );
     } catch (e) {
       print(e);
@@ -86,6 +89,7 @@ class DemoController extends GetxController {
       );
     } catch (e) {
       print(e);
+      print('insertCategoryModel');
     }
   }
 
@@ -105,23 +109,70 @@ class DemoController extends GetxController {
     return id;
   }
 
+  Future<void> insertAllProductModel(AllProductModel allProductModel) async {
+    // Get a reference to the database.
+    final db = await openDatabase('my_database.db');
+    try {
+      await db.insert(
+        'allProductModel',
+        allProductModel.toMap(),
+        // conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<List<Map<String, dynamic>>> getAllFromCategoryModel() async {
     //SELECT * FROM categoryModel;
     final db = await openDatabase('my_database.db');
     return await db.rawQuery('''SELECT categoryModel.name as categoryModel_name,categoryModel.id as categoryModel_id FROM categoryModel''');
   }
 
+  Future<List<Map<String, dynamic>>> getAllFromAllProductModel() async {
+    //SELECT * FROM categoryModel;
+    final db = await openDatabase('my_database.db');
+    return await db.rawQuery(
+        '''SELECT allProductModel.id AS allProductModel_id, allProductModel.name AS allProductModel_name,allProductModel.attrName AS allProductModel_attrName,
+    allProductModel.price AS allProductModel_price,allProductModel.foodId AS allProductModel_foodId,allProductModel.catId AS allProductModel_catId FROM 
+    allProductModel''');
+  }
+
+  deleteFoodAndAttributelistTable() async {
+    final db = await openDatabase('my_database.db');
+    // await db.rawQuery('DROP TABLE IF EXISTS foodName;');
+    await db.rawQuery('DROP TABLE IF EXISTS foodCreateModel;');
+    await db.rawQuery('DROP TABLE IF EXISTS categoryModel;');
+    await db.rawQuery('DROP TABLE IF EXISTS allProductModel;');
+  }
+
   printData() async {
     try {
-      final joinedData = await getAllFromCategoryModel();
+      // final joinedData = await getAllFromCategoryModel();
+      // for (final row in joinedData) {
+      //   print('Print Data:');
+      //   print('categoryModel Details:');
+      //   print('categoryModel_name: ${row['categoryModel_name']}');
+      //   print('categoryModel_id: ${row['categoryModel_id']}');
+      //   print('---------');
+      // }
+
+      final joinedData = await getAllFromAllProductModel();
       for (final row in joinedData) {
         print('Print Data:');
-        print('categoryModel Details:');
-        print('categoryModel_name: ${row['categoryModel_name']}');
-        print('categoryModel_id: ${row['categoryModel_id']}');
+        print('allProductModel Details:');
+        print('allProductModel_name: ${row['allProductModel_name']}');
+        print('allProductModel_id: ${row['allProductModel_id']}');
+        print('allProductModel_attrName: ${row['allProductModel_attrName']}');
+        print('allProductModel_price: ${row['allProductModel_price']}');
+        print('allProductModel_foodId: ${row['allProductModel_foodId']}');
+        print('allProductModel_catId: ${row['allProductModel_catId']}');
         print('---------');
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+      print("data print prbl");
+    }
   }
 
   setpriceVariationNumber(List<TextEditingController> texteditingController, List<TextEditingController> texteditingControllerPrice) {
@@ -132,15 +183,31 @@ class DemoController extends GetxController {
   }
 
   printAllTextEditingOfOneCategory(int index) async {
+    /// etar name chnage hobe
+    //here index is the category id ;
     FoodCreateModel foodCreateModel = new FoodCreateModel(name: individualCategoryMainItemName[index].text);
     await insertFoodCreateModel(foodCreateModel);
     int id = await getLastAddedToFoodCreateModelId();
-    print(individualCategoryMainItemName[index].text);
+    print(individualCategoryMainItemName[index].text); //name of allProductModel M.tea
     for (int i = 0; i < itemVarriationPriceModel[index].texteditingController.length; i++) {
+      AllProductModel allProductModel = new AllProductModel(
+          name: individualCategoryMainItemName[index].text,
+          attrName: itemVarriationPriceModel[index].texteditingController[i].text,
+          catId: index,
+          foodId: id,
+          price: double.parse(itemVarriationPriceModel[index].texteditingControllerForPrice[i].text));
+      await insertAllProductModel(allProductModel);
+      //here it prints large(attrName) 30(price) , medium 16
       print(itemVarriationPriceModel[index].texteditingController[i].text +
           "   " +
-          itemVarriationPriceModel[index].texteditingControllerForPrice[i].text);
+          itemVarriationPriceModel[index].texteditingControllerForPrice[i].text); //
     }
+    print("--------");
+    print("-----------");
+    print("--------");
+    print("-----------");
+
+    await printData();
   }
 
   // setPriceAndVarriationAddingTextControllerFirsTime(int index) {
@@ -199,6 +266,7 @@ class DemoController extends GetxController {
       itemVarriationPriceModel.refresh();
     } catch (e) {
       print(e);
+      print("setItemVarriationPriceModel");
     }
   }
 

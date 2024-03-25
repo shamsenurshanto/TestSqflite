@@ -38,13 +38,21 @@ class FoodCreateModel {
 
 class AllProductModel {
   final String name;
+  final String attrName; //attribute name like small , Large etc
+  final int catId; //category id
+  final int foodId;
+  final double price;
 
-  AllProductModel({required this.name});
+  AllProductModel({required this.name, required this.attrName, required this.catId, required this.foodId, required this.price});
 
   // Method to convert AddToCartModel object to a map
   Map<String, Object?> toMap() {
     return {
       'name': name,
+      'attrName': attrName,
+      'catId': catId,
+      'foodId': foodId,
+      'price': price,
     };
   }
 
