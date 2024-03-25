@@ -61,3 +61,21 @@ class AllProductModel {
     return 'AllProductModel{ name: $name}';
   }
 }
+
+class ItemUnderCategoryModel {
+  final String MainName;
+  final String attrName;
+  final double attrPrice;
+  ItemUnderCategoryModel({required this.MainName, required this.attrName, required this.attrPrice});
+  // Method to convert AddToCartModel object to a map
+  Map<String, Object?> toMap() {
+    return {
+      'name': MainName,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'FoodCreateModel{ name: $MainName}';
+  }
+}

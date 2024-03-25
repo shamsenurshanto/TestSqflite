@@ -42,6 +42,7 @@ class DemoController extends GetxController {
 
   var individualCategoryMainItemName = <TextEditingController>[].obs;
   var individualCategoryMainItemNameBoolList = <bool>[].obs;
+  var itemUnderCategoryModelList = <ItemUnderCategoryModel>[].obs;
 
   /// if the item should show or not
 
@@ -138,6 +139,18 @@ class DemoController extends GetxController {
     allProductModel''');
   }
 
+  Future<List<Map<String, dynamic>>> getProductByCategoryId(int categoryId) async {
+    final db = await openDatabase('my_database.db');
+    return await db.rawQuery('''SELECT allProductModel.id AS allProductModel_id, 
+                allProductModel.name AS allProductModel_name,
+                allProductModel.attrName AS allProductModel_attrName,
+                allProductModel.price AS allProductModel_price,
+                allProductModel.foodId AS allProductModel_foodId,
+                allProductModel.catId AS allProductModel_catId 
+         FROM allProductModel
+         WHERE allProductModel.catId = ?''', [categoryId]);
+  }
+
   deleteFoodAndAttributelistTable() async {
     final db = await openDatabase('my_database.db');
     // await db.rawQuery('DROP TABLE IF EXISTS foodName;');
@@ -168,6 +181,34 @@ class DemoController extends GetxController {
         print('allProductModel_foodId: ${row['allProductModel_foodId']}');
         print('allProductModel_catId: ${row['allProductModel_catId']}');
         print('---------');
+      }
+    } catch (e) {
+      print(e);
+      print("data print prbl");
+    }
+  }
+
+  fetchDataUsingCategoryId(int catId) async {
+    try {
+      final joinedData = await getProductByCategoryId(catId);
+      // itemUnderCategoryModelList.clear();
+      for (final row in joinedData) {
+        ItemUnderCategoryModel itemUnderCategoryModel = new ItemUnderCategoryModel(
+            MainName: row['allProductModel_name'], attrName: row['allProductModel_attrName'], attrPrice: row['allProductModel_price']);
+        var demoItemUnderCategoryModelList = <ItemUnderCategoryModel>[];
+        demoItemUnderCategoryModelList.addAll(itemUnderCategoryModelList);
+        demoItemUnderCategoryModelList.add(itemUnderCategoryModel);
+        itemUnderCategoryModelList.clear();
+        itemUnderCategoryModelList.addAll(demoItemUnderCategoryModelList); //itemUnderCategoryModelList add korbo
+        print('Print Data catId : ' + catId.toString());
+        print('allProductModel Details:');
+        print('allProductModel_name: ${row['allProductModel_name']}'); //mainName
+        print('allProductModel_id: ${row['allProductModel_id']}');
+        print('allProductModel_attrName: ${row['allProductModel_attrName']}');
+        print('allProductModel_price: ${row['allProductModel_price']}');
+        print('allProductModel_foodId: ${row['allProductModel_foodId']}');
+        print('allProductModel_catId: ${row['allProductModel_catId']}');
+        print('--------------------------------------');
       }
     } catch (e) {
       print(e);
@@ -261,7 +302,7 @@ class DemoController extends GetxController {
         print('categoryModel_name: ${row['categoryModel_name']}');
         print('categoryModel_id: ${row['categoryModel_id']}');
         print('---------');
-        setNewCategoryList(row['categoryModel_name'], row['categoryModel_id']); // add every time
+        await setNewCategoryList(row['categoryModel_name'], row['categoryModel_id']); // add every time
       }
       itemVarriationPriceModel.refresh();
     } catch (e) {
@@ -270,7 +311,7 @@ class DemoController extends GetxController {
     }
   }
 
-  setNewCategoryList(String txt, int index) {
+  setNewCategoryList(String txt, int index) async {
     // categoryList.addAll([...,txt]);
     List<TextEditingController> demoList = [];
     List<TextEditingController> demoList2 = []; // for adding names (item nam)
@@ -289,6 +330,7 @@ class DemoController extends GetxController {
     itemVarriationPriceModel.refresh();
     individualCategoryMainItemName.add(TextEditingController());
     individualCategoryMainItemNameBoolList.add(false);
+    await fetchDataUsingCategoryId(index);
   }
 
   setPriceVarriationTrueOrFalse(int index) {
