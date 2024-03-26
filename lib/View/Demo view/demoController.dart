@@ -44,6 +44,8 @@ class DemoController extends GetxController {
   var individualCategoryMainItemNameBoolList = <bool>[].obs;
   var itemUnderCategoryModelList = <ItemUnderCategoryModel>[].obs;
 
+  var rxList = <List<ItemUnderCategoryModel>>[].obs;
+
   /// if the item should show or not
 
   @override
@@ -71,6 +73,8 @@ class DemoController extends GetxController {
       print("jel");
     }
   }
+
+
 
   Future<int> getLastAddedToFoodCreateModelId() async {
     final db = await openDatabase('my_database.db');
@@ -192,15 +196,20 @@ class DemoController extends GetxController {
     try {
       final joinedData = await getProductByCategoryId(catId);
       // itemUnderCategoryModelList.clear();
+      var demoItemUnderCategoryModelList = <ItemUnderCategoryModel>[];
       for (final row in joinedData) {
         ItemUnderCategoryModel itemUnderCategoryModel = new ItemUnderCategoryModel(
             MainName: row['allProductModel_name'], attrName: row['allProductModel_attrName'], attrPrice: row['allProductModel_price']);
-        var demoItemUnderCategoryModelList = <ItemUnderCategoryModel>[];
-        demoItemUnderCategoryModelList.addAll(itemUnderCategoryModelList);
+
+        // demoItemUnderCategoryModelList.addAll(itemUnderCategoryModelList);
         demoItemUnderCategoryModelList.add(itemUnderCategoryModel);
         itemUnderCategoryModelList.clear();
-        itemUnderCategoryModelList.addAll(demoItemUnderCategoryModelList); //itemUnderCategoryModelList add korbo
-        print('Print Data catId : ' + catId.toString());
+        // itemUnderCategoryModelList.addAll(demoItemUnderCategoryModelList); //itemUnderCategoryModelList add korbo
+
+
+        // rxList[rxList.length-1].addAll(demoItemUnderCategoryModelList);
+
+        print('Print Data catId : ' + rxList.length.toString());
         print('allProductModel Details:');
         print('allProductModel_name: ${row['allProductModel_name']}'); //mainName
         print('allProductModel_id: ${row['allProductModel_id']}');
@@ -210,9 +219,18 @@ class DemoController extends GetxController {
         print('allProductModel_catId: ${row['allProductModel_catId']}');
         print('--------------------------------------');
       }
+      rxList.add(demoItemUnderCategoryModelList);
+      itemUnderCategoryModelList.refresh();
+      rxList.refresh();
+      for(int i=0;i<rxList.length;i++){
+        print("all the print ");
+        for(int j=0;j<rxList[i].length;j++){
+          print(rxList[i][j].attrPrice.toString()+"  "+rxList[i][j].attrName);
+        }
+      }
     } catch (e) {
       print(e);
-      print("data print prbl");
+      print("data print prbl fetch ");
     }
   }
 
@@ -226,29 +244,37 @@ class DemoController extends GetxController {
   printAllTextEditingOfOneCategory(int index) async {
     /// etar name chnage hobe
     //here index is the category id ;
+
     FoodCreateModel foodCreateModel = new FoodCreateModel(name: individualCategoryMainItemName[index].text);
     await insertFoodCreateModel(foodCreateModel);
     int id = await getLastAddedToFoodCreateModelId();
     print(individualCategoryMainItemName[index].text); //name of allProductModel M.tea
     for (int i = 0; i < itemVarriationPriceModel[index].texteditingController.length; i++) {
-      AllProductModel allProductModel = new AllProductModel(
-          name: individualCategoryMainItemName[index].text,
-          attrName: itemVarriationPriceModel[index].texteditingController[i].text,
-          catId: index,
-          foodId: id,
-          price: double.parse(itemVarriationPriceModel[index].texteditingControllerForPrice[i].text));
-      await insertAllProductModel(allProductModel);
       //here it prints large(attrName) 30(price) , medium 16
-      print(itemVarriationPriceModel[index].texteditingController[i].text +
-          "   " +
-          itemVarriationPriceModel[index].texteditingControllerForPrice[i].text); //
+        try{
+          print(itemVarriationPriceModel[index].texteditingController[i].text +
+              "   " +
+              itemVarriationPriceModel[index].texteditingControllerForPrice[i].text.toString() +" -hello"+" "+index.toString()); //
+          // AllProductModel allProductModel = new AllProductModel(
+          //     name: individualCategoryMainItemName[index].text,
+          //     attrName: itemVarriationPriceModel[index].texteditingController[i].text,
+          //     catId: index,
+          //     foodId: id,
+          //     price: 23);
+          // await insertAllProductModel(allProductModel);
+        }
+        catch(e){
+          print(e);
+        }
+
+
     }
     print("--------");
     print("-----------");
     print("--------");
     print("-----------");
 
-    await printData();
+    // await printData();
   }
 
   // setPriceAndVarriationAddingTextControllerFirsTime(int index) {
@@ -292,7 +318,6 @@ class DemoController extends GetxController {
 
   setItemVarriationPriceModel() async {
     //here we will update  individualCategoryMainItemNameBoolList from database
-
     try {
       final joinedData = await getAllFromCategoryModel();
       itemVarriationPriceModel.clear();
@@ -330,7 +355,7 @@ class DemoController extends GetxController {
     itemVarriationPriceModel.refresh();
     individualCategoryMainItemName.add(TextEditingController());
     individualCategoryMainItemNameBoolList.add(false);
-    await fetchDataUsingCategoryId(index);
+     fetchDataUsingCategoryId(index);
   }
 
   setPriceVarriationTrueOrFalse(int index) {

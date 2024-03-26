@@ -271,7 +271,7 @@ class demoDartView extends StatelessWidget {
                                   ],
                                 )),
                             //,Milk tea loop 2
-                            for (int i2 = 0; i2 < demoController.itemUnderCategoryModelList.length; i2++)
+                            for (int i2 = 0; i2 < demoController.rxList[i].length; i2++)
                               Container(
                                   constraints: BoxConstraints(
                                     minHeight: 90, // Set the minimum height here
@@ -298,7 +298,7 @@ class demoDartView extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              demoController.itemUnderCategoryModelList[i2].MainName,
+                                              demoController.rxList[i][i2].MainName,
                                               style:
                                                   GoogleFonts.roboto(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.pinkAccent),
                                             ),
@@ -314,12 +314,12 @@ class demoDartView extends StatelessWidget {
                                                         GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
                                                   ),
                                                   Text(
-                                                    demoController.itemUnderCategoryModelList[i2].attrName,
+                                                    demoController.rxList[i][i2].attrName,
                                                     style:
                                                         GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
                                                   ),
                                                   Text(
-                                                    "৳" + demoController.itemUnderCategoryModelList[i2].attrPrice.toString(),
+                                                    "৳" +  demoController.rxList[i][i2].attrPrice.toString(),
                                                     style:
                                                         GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
                                                   ),
@@ -577,9 +577,9 @@ class demoDartView extends StatelessWidget {
                                             ),
                                             InkWell(
                                               onTap: () async {
-                                                print('item add korun ');
+                                                // print('item add korun '+demoController.itemVarriationPriceModel[i].texteditingControllerForPrice[j].toString());
                                                 demoController.printAllTextEditingOfOneCategory(i);
-                                                demoController.fetchDataUsingCategoryId(i);
+                                                demoController.setItemVarriationPriceModel();
                                                 // FoodCreateModel foodCreateModel = new FoodCreateModel(name: )
                                               },
                                               child: Container(
