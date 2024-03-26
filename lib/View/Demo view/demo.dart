@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -243,9 +245,15 @@ class demoDartView extends StatelessWidget {
                                 //tea
                                 InkWell(
                                   onTap: () async {
-                                    demoController.fetchDataUsingCategoryId(i);
-                                    print(demoController.itemVarriationPriceModel[i].name);
-                                    print(demoController.itemVarriationPriceModel[i].id);
+                                    if(demoController.currentId.value==i){
+                                      demoController.currentId.value=-1;
+                                    }
+                                    else{
+                                      demoController.fetchDataUsingCategoryId(i); /// fetch
+                                      print(demoController.itemVarriationPriceModel[i].name);
+                                      print(demoController.itemVarriationPriceModel[i].id);
+                                    }
+
                                   },
                                   child: Container(
                                       margin: EdgeInsets.only(top: 10),
@@ -302,12 +310,15 @@ class demoDartView extends StatelessWidget {
                                           Container(
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  demoController.itemUnderCategoryModelList[i2].MainName,
-                                                  style:
-                                                  GoogleFonts.roboto(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.pinkAccent),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left: 8.0),
+                                                  child: Text(
+                                                    demoController.itemUnderCategoryModelList[i2].MainName,
+                                                    style:
+                                                    GoogleFonts.roboto(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.pinkAccent),
+                                                  ),
                                                 ),
                                                 for (int i3 = 0; i3 < 3; i3++) // loop 3
                                                   Row(
