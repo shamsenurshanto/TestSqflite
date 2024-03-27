@@ -195,7 +195,7 @@ class DemoController extends GetxController {
     try {
       final joinedData = await getProductByCategoryId(catId);
       itemUnderCategoryModelList.clear();
-      currentId.value=catId;
+      currentId.value = catId;
       for (final row in joinedData) {
         ItemUnderCategoryModel itemUnderCategoryModel = new ItemUnderCategoryModel(
             MainName: row['allProductModel_name'], attrName: row['allProductModel_attrName'], attrPrice: row['allProductModel_price']);
@@ -248,7 +248,6 @@ class DemoController extends GetxController {
           itemVarriationPriceModel[index].texteditingControllerForPrice[i].text); //
       itemVarriationPriceModel[index].texteditingController[i].clear();
       itemVarriationPriceModel[index].texteditingControllerForPrice[i].clear();
-
     }
     print("--------");
     print("-----------");
@@ -256,6 +255,11 @@ class DemoController extends GetxController {
     print("-----------");
 
     await printData();
+  }
+
+  deletePriceVariationNumber(int index, int j) {
+    itemVarriationPriceModel[index].texteditingController[j].clear();
+    itemVarriationPriceModel[index].texteditingControllerForPrice[j].clear();
   }
 
   // setPriceAndVarriationAddingTextControllerFirsTime(int index) {
@@ -332,7 +336,7 @@ class DemoController extends GetxController {
     demoList2.add(TextEditingController());
     demoList.addAll(demoList2);
     ItemVarriationPriceModel itemVarriationPriceModel2 =
-    new ItemVarriationPriceModel(id: index, texteditingController: demoList, texteditingControllerForPrice: demoListPrice, name: txt);
+        new ItemVarriationPriceModel(id: index, texteditingController: demoList, texteditingControllerForPrice: demoListPrice, name: txt);
     itemVarriationPriceModel.add(itemVarriationPriceModel2);
     itemVarriationPriceModel.refresh();
     individualCategoryMainItemName.add(TextEditingController());

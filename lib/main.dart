@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:testhive/View/Demo%20view/demo.dart';
 import 'package:testhive/View/Product_Add/sub_product_add.dart';
-import 'View/dashboard.dart';
+import 'View/Dashboard/dashboard.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-        initialRoute: '/demoDartView',
+      initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => DashBoard()),
         GetPage(name: '/second', page: () => SubProductAdd()),
-         GetPage(name: '/demoDartView', page: () => demoDartView()),
+        GetPage(name: '/demoDartView', page: () => demoDartView()),
+        GetPage(name: '/dashBoard', page: () => demoDartView()),
       ],
 
       // home: const DashBoard(),

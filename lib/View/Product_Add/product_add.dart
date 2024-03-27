@@ -6,7 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:testhive/Controller/attribute_controller.dart';
 import 'package:testhive/Controller/dashboard_controller.dart';
 import 'package:testhive/Controller/product_add_controller.dart';
-import 'package:testhive/View/dashboard.dart';
+import 'package:testhive/View/Dashboard/dashboard.dart';
 
 import 'package:testhive/View/restaurant_profile.dart';
 

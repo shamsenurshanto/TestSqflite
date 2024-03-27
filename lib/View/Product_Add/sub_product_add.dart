@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:testhive/Controller/category_controller.dart';
 import 'package:testhive/Controller/dashboard_controller.dart';
 import 'package:testhive/Model/add_to_cart_model.dart';
-import 'package:testhive/View/dashboard.dart';
+import 'package:testhive/View/Dashboard/dashboard.dart';
 import 'package:testhive/View/restaurant_profile.dart';
 
 import '../../Controller/add_to_cart_controller.dart';

@@ -46,6 +46,7 @@ dependencies:
   font_awesome_flutter: any
   shimmer: ^3.0.0
   dropdown_button2: ^2.3.9
+  vertical_scrollable_tabview: ^0.1.1
   sqflite: ^2.3.2
   path: ^1.8.3
   
