@@ -17,6 +17,9 @@ class DashBoard extends StatelessWidget {
   final String shImages = 'https://yrf.com.au/wp-content/uploads/2021/09/placeholder-wire-image.jpg';
 
   const DashBoard({super.key});
+  printFyn() {
+    print("heelo");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,38 +37,38 @@ class DashBoard extends StatelessWidget {
           body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            new SliverAppBar(
-              title: Text('Tabs Demo', style: TextStyle(color: Colors.white)),
-              pinned: true,
-              floating: true,
-              backgroundColor: Colors.pink.withOpacity(0.1992),
-              bottom: TabBar(
-                isScrollable: true,
-                indicatorColor: Colors.black,
-                tabs: [
-                  for (int i = 0; i < tabTitles.length; i++)
-                    Tab(
-                        child: Container(
-                      width: 100,
-                      height: 20,
-                      child: Center(
-                          child: Text(
-                        tabTitles[i],
-                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                      )),
+            SliverAppBar(
+                title: const Text('Tabs Demo',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 230, 127, 161),
                     )),
-                ],
-              ),
-            ),
+                pinned: true,
+                floating: true,
+                backgroundColor: Colors.white.withOpacity(0.992),
+                bottom: TabBar(
+                  isScrollable: true,
+                  indicatorColor: Colors.pink.withOpacity(1),
+                  labelColor: Colors.pink.withOpacity(1),
+                  unselectedLabelColor: Colors.grey,
+                  tabs: [
+                    for (int i = 0; i < tabTitles.length; i++)
+                      Tab(
+                          child: Container(
+                        width: 100,
+                        height: 20,
+                        child: Center(
+                            child: Text(
+                          tabTitles[i],
+                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                        )),
+                      )),
+                  ],
+                )),
           ];
         },
         body: TabBarView(
           children: <Widget>[
-            demoDartView(),
-            Icon(Icons.directions_transit, size: 350),
-            Icon(Icons.directions_car, size: 350),
-            Icon(Icons.directions_bike, size: 350),
-            Icon(Icons.directions_boat, size: 350),
+            for (int i = 0; i < tabTitles.length; i++) Icon(Icons.add_a_photo, size: 350),
           ],
         ),
       )),
