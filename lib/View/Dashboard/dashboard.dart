@@ -35,18 +35,24 @@ class DashBoard extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             new SliverAppBar(
-              title: Text('Tabs Demo'),
+              title: Text('Tabs Demo', style: TextStyle(color: Colors.white)),
               pinned: true,
               floating: true,
+              backgroundColor: Colors.pink.withOpacity(0.1992),
               bottom: TabBar(
                 isScrollable: true,
+                indicatorColor: Colors.black,
                 tabs: [
                   for (int i = 0; i < tabTitles.length; i++)
                     Tab(
                         child: Container(
                       width: 100,
                       height: 20,
-                      child: Center(child: Text(tabTitles[i])),
+                      child: Center(
+                          child: Text(
+                        tabTitles[i],
+                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                      )),
                     )),
                 ],
               ),
@@ -55,7 +61,7 @@ class DashBoard extends StatelessWidget {
         },
         body: TabBarView(
           children: <Widget>[
-            Icon(Icons.flight, size: 350),
+            demoDartView(),
             Icon(Icons.directions_transit, size: 350),
             Icon(Icons.directions_car, size: 350),
             Icon(Icons.directions_bike, size: 350),
