@@ -246,6 +246,9 @@ class DemoController extends GetxController {
       print(itemVarriationPriceModel[index].texteditingController[i].text +
           "   " +
           itemVarriationPriceModel[index].texteditingControllerForPrice[i].text); //
+      itemVarriationPriceModel[index].texteditingController[i].clear();
+      itemVarriationPriceModel[index].texteditingControllerForPrice[i].clear();
+
     }
     print("--------");
     print("-----------");

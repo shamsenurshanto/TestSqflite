@@ -119,6 +119,7 @@ class demoDartView extends StatelessWidget {
                                         InkWell(
                                           onTap: () {
                                             // Add functionality for Cancel button
+                                            demoController.setAddCategoryFirst();
                                             textEditingController.clear();
                                           },
                                           child: Container(
@@ -314,7 +315,7 @@ class demoDartView extends StatelessWidget {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(left: 8.0),
+                                                  padding: const EdgeInsets.only(left: 15.0),
                                                   child: Text(
                                                     demoController.itemUnderCategoryModelList[i2].MainName,
                                                     style:
@@ -336,6 +337,9 @@ class demoDartView extends StatelessWidget {
                                                         demoController.itemUnderCategoryModelList[i2].attrName,
                                                         style:
                                                         GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 4,
                                                       ),
                                                       Text(
                                                         "৳" + demoController.itemUnderCategoryModelList[i2].attrPrice.toString(),
