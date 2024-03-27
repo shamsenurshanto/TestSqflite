@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -320,7 +321,7 @@ class demoDartView extends StatelessWidget {
                                                     GoogleFonts.roboto(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.pinkAccent),
                                                   ),
                                                 ),
-                                                for (int i3 = 0; i3 < 3; i3++) // loop 3
+                                                // for (int i3 = 0; i3 < 3; i3++) // loop 3
                                                   Row(
                                                     children: [
                                                       SizedBox(
@@ -596,8 +597,16 @@ class demoDartView extends StatelessWidget {
                                                 InkWell(
                                                   onTap: () async {
                                                     print('item add korun ');
+
                                                     demoController.printAllTextEditingOfOneCategory(i);
-                                                    demoController.fetchDataUsingCategoryId(i);
+                                                    demoController.currentId.value=-1;
+                                                    Timer(Duration(milliseconds: 60), () {
+                                                       demoController.fetchDataUsingCategoryId(i);
+                                                    });
+                                                   demoController.fetchDataUsingCategoryId(i);
+
+                                                    demoController.setPriceVarriationTrueOrFalse(i);
+
                                                     // demoController.insertAllProductModel(allProductModel);
                                                     // FoodCreateModel foodCreateModel = new FoodCreateModel(name: )
                                                   },
@@ -656,6 +665,7 @@ class demoDartView extends StatelessWidget {
                                         InkWell(
                                           onTap: () {
                                             print("add dish");
+                                            demoController.fetchDataUsingCategoryId(i);
                                             //visible item add
                                             demoController.setPriceVarriationTrueOrFalse(i);
                                           },
