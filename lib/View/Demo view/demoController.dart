@@ -341,7 +341,7 @@ class DemoController extends GetxController {
     itemVarriationPriceModel.refresh();
     individualCategoryMainItemName.add(TextEditingController());
     individualCategoryMainItemNameBoolList.add(false);
-    // fetchDataUsingCategoryId(index);
+    fetchDataUsingCategoryId(index);
   }
 
   setPriceVarriationTrueOrFalse(int index) {
