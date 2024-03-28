@@ -34,9 +34,10 @@ class DashBoard extends StatelessWidget {
       'Tab 5',
     ];
 
-    return DefaultTabController(
-      length: 5,
-      child: Obx(() => Scaffold(
+    return Obx(
+      () => DefaultTabController(
+          length: demoController.itemVarriationPriceModel.length,
+          child: Scaffold(
               body: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
@@ -77,72 +78,73 @@ class DashBoard extends StatelessWidget {
             },
             body: TabBarView(
               children: <Widget>[
-                for (int i2 = 0; i2 < demoController.itemUnderCategoryModelList.length; i2++)
-                  InkWell(
-                    onTap: () {
-                      print("huuuuu");
-                    },
-                    child: Container(
-                        constraints: BoxConstraints(
-                          minHeight: 90, // Set the minimum height here
-                        ),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(5.0),
-                            bottomRight: Radius.circular(5.0),
+                for (int i = 0; i < demoController.itemVarriationPriceModel.length; i++)
+                  for (int i2 = 0; i2 < demoController.itemUnderCategoryModelList.length && demoController.currentId.value == i; i2++)
+                    InkWell(
+                      onTap: () {
+                        print("huuuuu");
+                      },
+                      child: Container(
+                          constraints: BoxConstraints(
+                            minHeight: 90, // Set the minimum height here
                           ),
-                          border: Border.all(
-                            color: Color.fromARGB(107, 230, 171, 190),
-                            // Specify border color here
-                            width: 1.0, // Specify border width here
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(5.0),
+                              bottomRight: Radius.circular(5.0),
+                            ),
+                            border: Border.all(
+                              color: Color.fromARGB(107, 230, 171, 190),
+                              // Specify border color here
+                              width: 1.0, // Specify border width here
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15.0),
-                                    child: Text(
-                                      demoController.itemUnderCategoryModelList[i2].MainName,
-                                      style: GoogleFonts.roboto(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.pinkAccent),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15.0),
+                                      child: Text(
+                                        demoController.itemUnderCategoryModelList[i2].MainName,
+                                        style: GoogleFonts.roboto(fontSize: 17, fontWeight: FontWeight.w500, color: Colors.pinkAccent),
+                                      ),
                                     ),
-                                  ),
-                                  // for (int i3 = 0; i3 < 3; i3++) // loop 3
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        "- ",
-                                        style: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
-                                      ),
-                                      Text(
-                                        demoController.itemUnderCategoryModelList[i2].attrName,
-                                        style: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        "৳" + demoController.itemUnderCategoryModelList[i2].attrPrice.toString(),
-                                        style: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        )),
-                  ),
+                                    // for (int i3 = 0; i3 < 3; i3++) // loop 3
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          "- ",
+                                          style: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
+                                        ),
+                                        Text(
+                                          demoController.itemUnderCategoryModelList[i2].attrName,
+                                          style: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
+                                        ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          "৳" + demoController.itemUnderCategoryModelList[i2].attrPrice.toString(),
+                                          style: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          )),
+                    ),
               ],
             ),
           ))),

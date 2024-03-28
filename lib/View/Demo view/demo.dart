@@ -20,6 +20,7 @@ class demoDartView extends StatelessWidget {
     // demoController.deleteFoodAndAttributelistTable();
     demoController.createTable(); //temp function later i will change it's place
     demoController.setItemVarriationPriceModel(); //temp function later i will change it 's place
+    // demoController.fetchDataUsingCategoryId(demoController.itemVarriationPriceModel[0].id);
 
     // CategoryModel categoryModel = new CategoryModel(name: "Pizza");
     // demoController.insertCategoryModel(categoryModel);
